@@ -11,7 +11,6 @@ public class RollingGun : MonoBehaviour
     private bool _isWalking,_isfollowing,_actionStarted;
     private List<System.Action> _enemyFunctions;
     private Vector3 _targetPos;
-    private EnemyCamp enemyCamp;
     private bool _isAttacking;
     private bool isFirstAction;
     void Start()

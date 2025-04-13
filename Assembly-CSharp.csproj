@@ -65,8 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemy Related\EnemyWithBound.cs" />
+    <Compile Include="Assets\Scripts\Enemy Related\Knucker.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\HealingZone.cs" />
+    <Compile Include="Assets\Scripts\Enemy Related\Sprouter.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\TurretBullet.cs" />
+    <Compile Include="Assets\Scripts\Enemy Related\KnuckerShooting.cs" />
     <Compile Include="Assets\Scripts\Team Related\Turret.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\Bullet.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\HealthForEnemy.cs" />
