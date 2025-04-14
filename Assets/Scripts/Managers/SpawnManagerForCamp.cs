@@ -17,7 +17,7 @@ public class SpawnManagerForCamp : MonoBehaviour
     void Update()
     {
         isSpawnCampsCleared();
-        if(Input.GetKeyDown(KeyCode.R) && GameManager.Instance._playerIsHome)
+        if(Input.GetKeyDown(KeyCode.E) && GameManager.Instance._playerIsHome)
         {
             TriggerForEnemyCampWaveSpawn();
         }

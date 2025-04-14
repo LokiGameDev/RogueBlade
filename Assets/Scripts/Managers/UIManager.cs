@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public TextMeshProUGUI levelNumberText,enemyCountText,scoreText,playerLivesText,homeLivesText;
+    public TextMeshProUGUI levelNumberText,enemyCountText,scoreText,enemyInstruct;
+    public Slider lifeBar,homeHealthBar;
     private static UIManager _instance;
     public static UIManager Instance
     {
@@ -39,18 +41,23 @@ public class UIManager : MonoBehaviour
         levelNumberText.text = "Level : "+ level;
     }
 
-    public void HomeLivesUpdate(int lives)
+    public void HomeLivesUpdate(float lives)
     {
-        homeLivesText.text = "Home : " + lives;
+        homeHealthBar.value = lives/5;
     }
 
-    public void PlayerLivesUpdate(int lives)
+    public void PlayerLivesUpdate(float lives)
     {
-        playerLivesText.text = "Lives : " + lives;
+        lifeBar.value = lives/5;
     }
 
     public void PlayerScoreUpdate(int score)
     {
         scoreText.text = "Score : " + score;
+    }
+
+    public void EnemySpawnInstructionStatus(bool status)
+    {
+        enemyInstruct.gameObject.SetActive(status);
     }
 }

@@ -25,6 +25,7 @@ public class PlayerHome : MonoBehaviour
         {
             _playerIsHome=true;
             GameManager.Instance.PlayerHomeStatus(_playerIsHome);
+            UIManager.Instance.EnemySpawnInstructionStatus(_playerIsHome);
         }
     }
 
@@ -34,6 +35,7 @@ public class PlayerHome : MonoBehaviour
         {
             _playerIsHome=false;
             GameManager.Instance.PlayerHomeStatus(_playerIsHome);
+            UIManager.Instance.EnemySpawnInstructionStatus(_playerIsHome);
         }
     }
 

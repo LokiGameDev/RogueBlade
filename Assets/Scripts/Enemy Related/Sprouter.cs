@@ -80,7 +80,7 @@ public class Sprouter : MonoBehaviour
                     if(!isSpawning && !_isAttacking)
                     {
                         StartCoroutine(EnemySpawningDelay());
-                        Instantiate(_miniDronePrefab,transform.position,_miniDronePrefab.transform.rotation);
+                        Instantiate(_miniDronePrefab,transform.position + new Vector3(0,0,1),_miniDronePrefab.transform.rotation);
                         isSpawning=true;
                     }
                     
@@ -142,7 +142,7 @@ public class Sprouter : MonoBehaviour
 
     IEnumerator EnemySpawnWait()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
         spawnTheGroup=true;
     }
 
@@ -151,17 +151,5 @@ public class Sprouter : MonoBehaviour
         yield return new WaitForSeconds(3);
         spawnTimeStarted=false;
         spawnTheGroup=false;
-    }
-    public void GotHitByBullet()
-    {
-        Destroy(this.gameObject);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Bullet"))
-        {
-            GotHitByBullet();
-        }
     }
 }

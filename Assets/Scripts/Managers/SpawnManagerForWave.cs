@@ -5,45 +5,30 @@ public class SpawnManagerForWave : MonoBehaviour
     private int _levelDifficulty;
     private bool _isWaveOn;
     [SerializeField]
-    private bool _isSpawnOn;
     public GameObject[] enemyPrefabs;
 
     void Start()
     {
         _levelDifficulty=0;
-        _isWaveOn=true;
-        _isSpawnOn=false;
+        _isWaveOn=false;
     }
 
     void Update()
     {
-        if(_isSpawnOn)
+        if(Input.GetKeyDown(KeyCode.E) && GameManager.Instance._playerIsHome)
         {
+            AllEnemyClearCheck();
             if(!_isWaveOn)
             {
                 SpawnEnemyWave();
                 _isWaveOn=true;
-            }
-            else{
-                AllEnemyClearCheck();
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            if(_isSpawnOn)
-            {
-                SpawnNeedToBePaused();
-            }
-            else{
-                SpawnNeedToBeResumed();
             }
         }
     }
 
     private void SpawnEnemyWave()
     {
-        for(int i=0;i<_levelDifficulty*1.3f;i++)
+        for(int i=0;i<_levelDifficulty;i++)
         {
             SpawnEnemy();
         }
@@ -96,15 +81,5 @@ public class SpawnManagerForWave : MonoBehaviour
             _levelDifficulty++;
             UIManager.Instance.LevelNumberChange(_levelDifficulty);
         }
-    }
-
-    private void SpawnNeedToBePaused()
-    {
-        _isSpawnOn=false;
-    }
-
-    private void SpawnNeedToBeResumed()
-    {
-        _isSpawnOn=true;
     }
 }

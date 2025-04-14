@@ -117,16 +117,4 @@ public class RollingGun : MonoBehaviour
         _actionStarted=false;
     }
 
-    public void GotHitByBullet()
-    {
-        Destroy(this.gameObject);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Bullet"))
-        {
-            GotHitByBullet();
-        }
-    }
 }
