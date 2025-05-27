@@ -44,6 +44,8 @@ public class EnemyCamp : MonoBehaviour
 
         enemy.GetComponent<EnemyWithBound>().SetSpawnLocForEnemy(transform.position, GetComponent<EnemyCamp>());
 
+        enemy.transform.SetParent(this.gameObject.transform.parent);
+
         _enemyInCamp++;
 
         if(count<=0)

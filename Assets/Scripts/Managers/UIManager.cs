@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void PlayerScoreUpdate(int score)
     {
-        scoreText.text = "Score : " + score;
+        scoreText.text = "Coins : " + score;
     }
 
     public void EnemySpawnInstructionStatus(bool status)

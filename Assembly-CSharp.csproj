@@ -59,7 +59,7 @@
     <UnityVersion>2022.3.23f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\Lokesh\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\Lokesh\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.2\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.23f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.23f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -77,10 +77,12 @@
     <Compile Include="Assets\Scripts\Managers\SpawnManagerForCamp.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\PlayerSword.cs" />
+    <Compile Include="Assets\Scripts\MenuManager\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Common World Related\ViewWithPlayer.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\RollingGun.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\SpawnManagerForWave.cs" />
+    <Compile Include="Assets\Scripts\Team Related\TurretHolder.cs" />
     <Compile Include="Assets\Scripts\Player Related\PlayerHome.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player Related\PlayerHeart.cs" />

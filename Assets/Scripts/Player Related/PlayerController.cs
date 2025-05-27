@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class PlayerController : MonoBehaviour
     private bool _canPlayerDash;
     private Rigidbody _playerRigid;
     public GameObject playerAim;
+    public Slider dashSlider;
+    private float dashStartTime;
+    private int BOUNDARY = 200;
+
     void Start()
     {
         playerLives = 2;
@@ -36,12 +41,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement();
-        if(Input.GetKeyDown(KeyCode.LeftShift) && _canPlayerDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _canPlayerDash)
         {
-            _canPlayerDash=false;
+            _canPlayerDash = false;
+            dashStartTime = Time.time;
             _playerRigid.velocity = playerAim.transform.forward * 40;
             StartCoroutine(PlayerDashDelay());
-            Debug.Log("Dash");
+        }
+        if (!_canPlayerDash)
+        {
+            dashSlider.value = (Time.time - dashStartTime) / 1.5f;
         }
     }
 
@@ -49,9 +58,12 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-
-        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * _playerSpeed);
+        if (transform.position.x > BOUNDARY) horizontalInput = horizontalInput > 0 ? 0 : horizontalInput;
+        if (transform.position.x < -BOUNDARY) horizontalInput = horizontalInput < 0 ? 0 : horizontalInput;
+        if (transform.position.z > BOUNDARY) verticalInput = verticalInput > 0 ? 0 : verticalInput;
+        if (transform.position.z < -BOUNDARY) verticalInput = verticalInput < 0 ? 0 : verticalInput;
         transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * _playerSpeed);
+        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * _playerSpeed);
     }
 
     public void AddScore(int score)
@@ -60,15 +72,21 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.PlayerScoreUpdate(playerScore);
     }
 
+    public void ReduceScore(int score)
+    {
+        playerScore -= score;
+        UIManager.Instance.PlayerScoreUpdate(playerScore);
+    }
+
     public void GotHitByBullet()
     {
         playerLives--;
         UIManager.Instance.PlayerLivesUpdate(playerLives);
 
-        if(playerLives<1)
+        if (playerLives < 1)
         {
             Debug.Log("Player died");
-            isPlayerAlive=false;
+            isPlayerAlive = false;
         }
     }
 

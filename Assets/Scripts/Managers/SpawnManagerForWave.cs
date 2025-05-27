@@ -6,6 +6,7 @@ public class SpawnManagerForWave : MonoBehaviour
     private bool _isWaveOn;
     [SerializeField]
     public GameObject[] enemyPrefabs;
+    public GameObject parentForEnemies;
 
     void Start()
     {
@@ -37,10 +38,12 @@ public class SpawnManagerForWave : MonoBehaviour
     private void SpawnEnemy()
     {
         Vector3 randSpawnLoc = GenerateRandomSpawnLoc();
-        
-        int enemyIndex = Random.Range(0,enemyPrefabs.Length);
 
-        Instantiate(enemyPrefabs[enemyIndex],randSpawnLoc,enemyPrefabs[enemyIndex].transform.rotation);
+        int enemyIndex = Random.Range(0, enemyPrefabs.Length);
+
+        GameObject enemy = Instantiate(enemyPrefabs[enemyIndex], randSpawnLoc, enemyPrefabs[enemyIndex].transform.rotation);
+
+        enemy.transform.SetParent(parentForEnemies.transform);
     }
 
     private Vector3 GenerateRandomSpawnLoc()

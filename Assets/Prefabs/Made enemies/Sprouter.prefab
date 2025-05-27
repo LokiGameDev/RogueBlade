@@ -665,7 +665,7 @@ MonoBehaviour:
   _isWalking: 0
   _isfollowing: 0
   _actionStarted: 0
-  _miniDronePrefab: {fileID: 7250386580187690337, guid: ea87174870a22244aae30dc37a92e541, type: 3}
+  _miniDronePrefab: {fileID: 8956510734498645442, guid: aadf265e090a691479e38f9fa5540c2a, type: 3}
 --- !u!114 &7801988059269521912
 MonoBehaviour:
   m_ObjectHideFlags: 0

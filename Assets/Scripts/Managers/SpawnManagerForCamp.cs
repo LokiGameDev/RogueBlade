@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManagerForCamp : MonoBehaviour
 {
     public GameObject[] campSpawnLocations;
+    public GameObject parentForEnemyCamps;
     private int _waveLevel;
     public GameObject enemySpawnCamp;
     private bool _canSpawnCampWave;
@@ -25,10 +26,11 @@ public class SpawnManagerForCamp : MonoBehaviour
 
     void SpawnEnemyCampWave()
     {
-        for(int i=0;i<_waveLevel;i++)
+        for (int i = 0; i < _waveLevel; i++)
         {
-            int randCampLoc = Random.Range(0,campSpawnLocations.Length-1);
-            Instantiate(enemySpawnCamp,campSpawnLocations[randCampLoc].transform.position,enemySpawnCamp.transform.rotation);
+            int randCampLoc = Random.Range(0, campSpawnLocations.Length - 1);
+            GameObject camp = Instantiate(enemySpawnCamp, campSpawnLocations[randCampLoc].transform.position, enemySpawnCamp.transform.rotation);
+            camp.transform.SetParent(parentForEnemyCamps.transform);
         }
     }
 
