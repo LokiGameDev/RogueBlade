@@ -21,6 +21,7 @@ public class SpawnManagerForWave : MonoBehaviour
             AllEnemyClearCheck();
             if(!_isWaveOn)
             {
+                UIManager.Instance.WaveStatus(true);
                 SpawnEnemyWave();
                 _isWaveOn=true;
             }
@@ -78,9 +79,9 @@ public class SpawnManagerForWave : MonoBehaviour
     
     private void AllEnemyClearCheck()
     {
-        if(GameObject.FindGameObjectsWithTag("Enemy").Length==0)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            _isWaveOn=false;
+            _isWaveOn = false;
             _levelDifficulty++;
             UIManager.Instance.LevelNumberChange(_levelDifficulty);
         }
