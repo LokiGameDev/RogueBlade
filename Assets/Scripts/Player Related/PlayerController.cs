@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,15 +26,18 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _playerRigid;
     public GameObject playerAim;
     public Slider dashSlider;
+    public GameObject infoAbovePlayer;
     private float dashStartTime;
     private int BOUNDARY = 200;
+    private int _maxAmmo;
 
     void Start()
     {
         playerLives = 2;
-        isPlayerAlive=true;
-        _canPlayerDash=true;
+        isPlayerAlive = true;
+        _canPlayerDash = true;
         _playerRigid = GetComponent<Rigidbody>();
+        infoAbovePlayer.gameObject.SetActive(false);
 
         UIManager.Instance.PlayerScoreUpdate(playerScore);
         UIManager.Instance.PlayerLivesUpdate(playerLives);
@@ -52,6 +57,10 @@ public class PlayerController : MonoBehaviour
         {
             dashSlider.value = (Time.time - dashStartTime) / 1.5f;
         }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            AddScore(5);
+        }
     }
 
     private void Movement()
@@ -68,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddScore(int score)
     {
-        playerScore+=score;
+        playerScore += score;
         UIManager.Instance.PlayerScoreUpdate(playerScore);
     }
 
@@ -101,6 +110,37 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         _playerRigid.velocity = transform.forward * 0;
         yield return new WaitForSeconds(1.5f);
-        _canPlayerDash=true;
+        _canPlayerDash = true;
+    }
+
+    public void GunAmmoFillShop()
+    {
+        if (playerScore >= 1 && this.GetComponentInChildren<PlayerAttack>()._gunAmmo < _maxAmmo)
+        {
+            playerScore -= 1;
+            UIManager.Instance.PlayerScoreUpdate(playerScore);
+            this.GetComponentInChildren<PlayerAttack>().GunAmmoRefill(1);
+        }
+        else if (this.GetComponentInChildren<PlayerAttack>()._gunAmmo >= _maxAmmo)
+        {
+            infoAbovePlayer.SetActive(true);
+            infoAbovePlayer.GetComponentInChildren<TextMeshProUGUI>().text = "Ammo is full!";
+        }
+        else
+        {
+            infoAbovePlayer.SetActive(true);
+            infoAbovePlayer.GetComponentInChildren<TextMeshProUGUI>().text = "Not enough Money";
+        }
+    }
+
+    public void InsufficientAmmoInfo()
+    {
+        infoAbovePlayer.SetActive(true);
+        infoAbovePlayer.GetComponentInChildren<TextMeshProUGUI>().text = "Not enough Ammo";
+    }
+
+    public void MaxAmmoCountChange(int count)
+    {
+        _maxAmmo = count;
     }
 }

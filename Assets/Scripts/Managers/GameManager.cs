@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if(!player.GetComponent<PlayerController>().isPlayerAlive)
+        if (!player.GetComponent<PlayerController>().isPlayerAlive)
         {
             GameOver();
         }

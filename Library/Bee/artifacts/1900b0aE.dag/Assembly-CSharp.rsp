@@ -375,6 +375,7 @@
 "Assets/Scripts/Other Individuals/Bullet.cs"
 "Assets/Scripts/Other Individuals/EnemyBullet.cs"
 "Assets/Scripts/Other Individuals/HealingZone.cs"
+"Assets/Scripts/Other Individuals/InfoAbovePlayer.cs"
 "Assets/Scripts/Other Individuals/PlayerSword.cs"
 "Assets/Scripts/Other Individuals/TurretBullet.cs"
 "Assets/Scripts/Player Related/PlayerAttack.cs"

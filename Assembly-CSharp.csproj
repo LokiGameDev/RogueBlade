@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Player Related\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\EnemyCamp.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\CampHealth.cs" />
+    <Compile Include="Assets\Scripts\Other Individuals\InfoAbovePlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

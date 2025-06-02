@@ -7,23 +7,28 @@ public class PlayerHome : MonoBehaviour
     [SerializeField]
     private bool _playerIsHome;
     private int _homeHealth;
+    private GameObject player;
     void Start()
     {
-        _playerIsHome=false;
-        _homeHealth=5;
+        _playerIsHome = false;
+        _homeHealth = 5;
         UIManager.Instance.HomeLivesUpdate(_homeHealth);
+        player = GameObject.Find("Player");
     }
 
     void Update()
     {
-        
+        if (_playerIsHome && Input.GetKeyDown(KeyCode.Tab))
+        {
+            player.GetComponent<PlayerController>().GunAmmoFillShop();
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            _playerIsHome=true;
+            _playerIsHome = true;
             GameManager.Instance.PlayerHomeStatus(_playerIsHome);
             UIManager.Instance.EnemySpawnInstructionStatus(_playerIsHome);
         }
@@ -31,9 +36,9 @@ public class PlayerHome : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            _playerIsHome=false;
+            _playerIsHome = false;
             GameManager.Instance.PlayerHomeStatus(_playerIsHome);
             UIManager.Instance.EnemySpawnInstructionStatus(_playerIsHome);
         }
@@ -44,7 +49,7 @@ public class PlayerHome : MonoBehaviour
         _homeHealth--;
         UIManager.Instance.HomeLivesUpdate(_homeHealth);
 
-        if(_homeHealth<=0)
+        if (_homeHealth <= 0)
         {
             Debug.Log("GameOver");
             GameManager.Instance.PlayerHomeDestroyed();

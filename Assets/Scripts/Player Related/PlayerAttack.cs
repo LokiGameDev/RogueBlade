@@ -1,19 +1,26 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject bulletPrefab,playerSword;
-    private bool _canFireBullet,_canSwingSword;
+    public GameObject bulletPrefab, playerSword;
+    private bool _canFireBullet, _canSwingSword;
+    public int _gunAmmo;
     private Camera maincam;
     private Vector3 mousePos;
     private float rotY;
+    public TextMeshProUGUI ammoText;
+    private int _maxAmmo;
+    public Slider ammoSlider;
     void Start()
     {
-        _canFireBullet=true;
-        _canSwingSword=true;
+        _maxAmmo = 15;
+        MaxAmmoCountChange(_maxAmmo);
+        _gunAmmo = 0;
+        _canFireBullet = true;
+        _canSwingSword = true;
         playerSword.SetActive(false);
         maincam = GameObject.Find("PlayerAttackCam").GetComponent<Camera>();
     }
@@ -24,44 +31,60 @@ public class PlayerAttack : MonoBehaviour
 
         Vector3 rotation = mousePos - transform.position;
 
-        rotY = Mathf.Atan2(rotation.x,rotation.z) * Mathf.Rad2Deg;
+        rotY = Mathf.Atan2(rotation.x, rotation.z) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0,rotY,0);
+        transform.rotation = Quaternion.Euler(0, rotY, 0);
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             PlayerShoot();
         }
-        else if(Input.GetMouseButtonDown(1)){
+        else if (Input.GetMouseButtonDown(1))
+        {
             PlayerSwordAttack();
         }
-        
+
+        ammoText.text = "" + _gunAmmo;
+
+        ammoSlider.value = (float)_gunAmmo / (float)_maxAmmo;
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            MaxAmmoCountChange(_maxAmmo + 1);
+        }
+
     }
 
     private void PlayerShoot()
     {
-        if(_canFireBullet)
+        if (_canFireBullet && _gunAmmo > 0)
         {
             Vector3 bulletSpawnLoc = transform.GetChild(0).gameObject.transform.position;
 
-            GameObject bullet = Instantiate(bulletPrefab,bulletSpawnLoc,bulletPrefab.transform.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnLoc, bulletPrefab.transform.rotation);
 
-            bullet.transform.rotation = Quaternion.Euler(90,rotY,0);
+            bullet.transform.rotation = Quaternion.Euler(90, rotY, 0);
 
-            _canFireBullet=false;
+            _canFireBullet = false;
+
+            _gunAmmo--;
 
             StartCoroutine(BulletFireCooldown());
+        }
+        else if (_canFireBullet && _gunAmmo <= 0)
+        {
+            GameObject.Find("Player").GetComponent<PlayerController>().InsufficientAmmoInfo();
         }
     }
 
     private void PlayerSwordAttack()
     {
-        if(_canSwingSword)
+        if (_canSwingSword)
         {
 
             playerSword.SetActive(true);
 
-            _canSwingSword=false;
+            _canSwingSword = false;
 
             StartCoroutine(SwordSwingCooldown());
         }
@@ -70,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator BulletFireCooldown()
     {
         yield return new WaitForSeconds(0.5f);
-        _canFireBullet=true;
+        _canFireBullet = true;
     }
 
     IEnumerator SwordSwingCooldown()
@@ -78,6 +101,17 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         playerSword.SetActive(false);
         yield return new WaitForSeconds(0.25f);
-        _canSwingSword=true;
+        _canSwingSword = true;
+    }
+
+    public void GunAmmoRefill(int amount)
+    {
+        _gunAmmo += amount;
+    }
+
+    private void MaxAmmoCountChange(int count)
+    {
+        _maxAmmo = count;
+        GameObject.Find("Player").GetComponent<PlayerController>().MaxAmmoCountChange(_maxAmmo);
     }
 }
