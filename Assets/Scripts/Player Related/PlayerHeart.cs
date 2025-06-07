@@ -16,9 +16,9 @@ public class PlayerHeart : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        if(other.CompareTag("EnemyBullet"))
+        if(other.gameObject.CompareTag("EnemyBullet"))
         {
             _heartHealth--;
             Debug.Log("Dead");

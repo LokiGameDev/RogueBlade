@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
         int enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         if (enemyCount == 0) isWaveStarted = false;
 
-        enemyCountText.text = "Enemy : " + enemyCount;
+        enemyCountText.text = "" + enemyCount;
     }
 
     public void LevelNumberChange(int level)

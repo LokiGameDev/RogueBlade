@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         playerLives = 2;
         isPlayerAlive = true;
         _canPlayerDash = true;
+        _playerSpeed = 5;
         _playerRigid = GetComponent<Rigidbody>();
         infoAbovePlayer.gameObject.SetActive(false);
 
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             _canPlayerDash = false;
             dashStartTime = Time.time;
-            _playerRigid.velocity = playerAim.transform.forward * 40;
+            _playerRigid.velocity = playerAim.transform.forward * _playerSpeed * 8;
             StartCoroutine(PlayerDashDelay());
         }
         if (!_canPlayerDash)
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x < -BOUNDARY) horizontalInput = horizontalInput < 0 ? 0 : horizontalInput;
         if (transform.position.z > BOUNDARY) verticalInput = verticalInput > 0 ? 0 : verticalInput;
         if (transform.position.z < -BOUNDARY) verticalInput = verticalInput < 0 ? 0 : verticalInput;
+
         transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * _playerSpeed);
         transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * _playerSpeed);
     }

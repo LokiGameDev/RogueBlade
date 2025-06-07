@@ -7,12 +7,14 @@ public class TurretHolder : MonoBehaviour
 {
     public GameObject turretPrefab;
     public TextMeshPro instructionText;
+    public TextMeshPro instructionText2;
     private bool _isInsideHolder = false;
     private PlayerController _player;
 
     void Start()
     {
         instructionText.gameObject.SetActive(false);
+        instructionText2.gameObject.SetActive(false);
         _player = GameObject.Find("Player").GetComponent<PlayerController>(); 
     }
     void Update()
@@ -37,6 +39,7 @@ public class TurretHolder : MonoBehaviour
         {
             _isInsideHolder = true;
             instructionText.gameObject.SetActive(true);
+            instructionText2.gameObject.SetActive(true);
         }
     }
 
@@ -46,6 +49,7 @@ public class TurretHolder : MonoBehaviour
         {
             _isInsideHolder = false;
             instructionText.gameObject.SetActive(false);
+            instructionText2.gameObject.SetActive(false);
         }
     }
 }

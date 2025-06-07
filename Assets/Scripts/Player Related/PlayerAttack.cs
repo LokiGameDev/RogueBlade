@@ -13,7 +13,6 @@ public class PlayerAttack : MonoBehaviour
     private float rotY;
     public TextMeshProUGUI ammoText;
     private int _maxAmmo;
-    public Slider ammoSlider;
     void Start()
     {
         _maxAmmo = 15;
@@ -45,8 +44,6 @@ public class PlayerAttack : MonoBehaviour
         }
 
         ammoText.text = "" + _gunAmmo;
-
-        ammoSlider.value = (float)_gunAmmo / (float)_maxAmmo;
 
         if (Input.GetKeyDown(KeyCode.L))
         {
