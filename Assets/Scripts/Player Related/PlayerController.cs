@@ -130,8 +130,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            infoAbovePlayer.SetActive(true);
-            infoAbovePlayer.GetComponentInChildren<TextMeshProUGUI>().text = "Not enough Money";
+            InsufficientMoneyInfo();
         }
     }
 
@@ -144,5 +143,11 @@ public class PlayerController : MonoBehaviour
     public void MaxAmmoCountChange(int count)
     {
         _maxAmmo = count;
+    }
+
+    public void InsufficientMoneyInfo()
+    {
+        infoAbovePlayer.SetActive(true);
+        infoAbovePlayer.GetComponentInChildren<TextMeshProUGUI>().text = "Not enough Money";
     }
 }

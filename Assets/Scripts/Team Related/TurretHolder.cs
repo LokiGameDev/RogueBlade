@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class TurretHolder : MonoBehaviour
 {
     public GameObject turretPrefab;
+    public GameObject groundPanel;
     public TextMeshPro instructionText;
     public TextMeshPro instructionText2;
     private bool _isInsideHolder = false;
@@ -15,7 +14,8 @@ public class TurretHolder : MonoBehaviour
     {
         instructionText.gameObject.SetActive(false);
         instructionText2.gameObject.SetActive(false);
-        _player = GameObject.Find("Player").GetComponent<PlayerController>(); 
+        _player = GameObject.Find("Player").GetComponent<PlayerController>();
+        groundPanel.SetActive(false);
     }
     void Update()
     {
@@ -29,6 +29,10 @@ public class TurretHolder : MonoBehaviour
                     _player.ReduceScore(50);
                     Destroy(this.gameObject);
                 }
+                else
+                {
+                    _player.GetComponent<PlayerController>().InsufficientMoneyInfo();
+                }
             }
         }
 
@@ -40,6 +44,7 @@ public class TurretHolder : MonoBehaviour
             _isInsideHolder = true;
             instructionText.gameObject.SetActive(true);
             instructionText2.gameObject.SetActive(true);
+            groundPanel.SetActive(true);
         }
     }
 
@@ -50,6 +55,7 @@ public class TurretHolder : MonoBehaviour
             _isInsideHolder = false;
             instructionText.gameObject.SetActive(false);
             instructionText2.gameObject.SetActive(false);
+            groundPanel.SetActive(false);
         }
     }
 }
