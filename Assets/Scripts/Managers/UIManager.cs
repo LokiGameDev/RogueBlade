@@ -40,6 +40,11 @@ public class UIManager : MonoBehaviour
         if (enemyCount == 0) isWaveStarted = false;
 
         enemyCountText.text = "" + enemyCount;
+
+        if (GameManager.Instance._playerIsHome && !isWaveStarted)
+        {
+            enemyInstruct.gameObject.SetActive(true);
+        }
     }
 
     public void LevelNumberChange(int level)

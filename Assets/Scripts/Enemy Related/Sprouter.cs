@@ -81,7 +81,7 @@ public class Sprouter : MonoBehaviour
                     {
                         StartCoroutine(EnemySpawningDelay());
                         GameObject enemy = Instantiate(_miniDronePrefab,transform.position + new Vector3(0,0,1),_miniDronePrefab.transform.rotation);
-                        enemy.transform.SetParent(this.gameObject.transform);
+                        enemy.transform.SetParent(this.gameObject.transform.parent);
                         isSpawning =true;
                     }
                     

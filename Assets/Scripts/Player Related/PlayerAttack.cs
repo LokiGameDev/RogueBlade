@@ -34,11 +34,11 @@ public class PlayerAttack : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, rotY, 0);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             PlayerShoot();
         }
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(0))
         {
             PlayerSwordAttack();
         }

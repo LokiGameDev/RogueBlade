@@ -8,14 +8,13 @@ public class EnemyCamp : MonoBehaviour
     private Vector3 _spawnPos;
     private int _enemyInCamp;
     private bool _canSpawnEnemy;
-    private Animator _campAnim;
+    public Animator _campAnim;
     void Start()
     {
         _spawnPos = transform.position;
         _enemyInCamp = 0;
         _enemySpawnCount = 5;
         _canSpawnEnemy=false;
-        _campAnim = GetComponent<Animator>();
         SpawnTheEnemyGroup();
     }
 

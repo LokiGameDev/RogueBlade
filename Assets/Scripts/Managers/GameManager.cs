@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     {
         get; private set;
     }
+    public int _level
+    {
+        get; private set;
+    }
+    private bool _canSpawnWave;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -34,6 +39,9 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        _level = 0;
+        _canSpawnWave = true;
+        UIManager.Instance.WaveStatus(!_canSpawnWave);
         player = GameObject.Find("Player");
         _isPlayerHomeSafe=true;
     }
@@ -43,11 +51,37 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+        if (Input.GetKeyDown(KeyCode.E) && _playerIsHome)
+        {
+            SpawnWave();
+        }
+        AllEnemeisCleared();
+    }
+    public static event Action SpawnTheEnemies;
+
+    private void SpawnWave()
+    {
+        if (_canSpawnWave)
+        {
+            _level++;
+            UIManager.Instance.LevelNumberChange(_level);
+            SpawnTheEnemies?.Invoke();
+            _canSpawnWave = false;
+            UIManager.Instance.WaveStatus(!_canSpawnWave);
+        }
     }
 
+    public void AllEnemeisCleared()
+    {
+        if (GameObject.FindGameObjectsWithTag("Enemy").Count() == 0 && GameObject.FindGameObjectsWithTag("EnemyCamp").Count() == 0)
+        {
+            UIManager.Instance.WaveStatus(!_canSpawnWave);
+            _canSpawnWave = true;
+        }
+    }
     public void PlayerHomeStatus(bool status)
     {
-        _playerIsHome=status;
+        _playerIsHome = status;
     }
 
     public void PlayerHomeDestroyed()

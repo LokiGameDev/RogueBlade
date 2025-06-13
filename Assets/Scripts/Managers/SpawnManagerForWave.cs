@@ -2,35 +2,27 @@ using UnityEngine;
 
 public class SpawnManagerForWave : MonoBehaviour
 {
-    private int _levelDifficulty;
-    private bool _isWaveOn;
     [SerializeField]
     public GameObject[] enemyPrefabs;
     public GameObject parentForEnemies;
 
-    void Start()
+    void OnEnable()
     {
-        _levelDifficulty=0;
-        _isWaveOn=false;
+        GameManager.SpawnTheEnemies+=SpawnEnemyWave;
     }
 
-    void Update()
+    void OnDisable()
     {
-        if(Input.GetKeyDown(KeyCode.E) && GameManager.Instance._playerIsHome)
-        {
-            AllEnemyClearCheck();
-            if(!_isWaveOn)
-            {
-                UIManager.Instance.WaveStatus(true);
-                SpawnEnemyWave();
-                _isWaveOn=true;
-            }
-        }
+        GameManager.SpawnTheEnemies-=SpawnEnemyWave;
+    }
+    void Start()
+    {
+
     }
 
     private void SpawnEnemyWave()
     {
-        for(int i=0;i<_levelDifficulty;i++)
+        for(int i=0;i<GameManager.Instance._level;i++)
         {
             SpawnEnemy();
         }
@@ -75,15 +67,5 @@ public class SpawnManagerForWave : MonoBehaviour
         }
 
         return  new Vector3(xLoc,1.14f,zLoc);
-    }
-    
-    private void AllEnemyClearCheck()
-    {
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
-        {
-            _isWaveOn = false;
-            _levelDifficulty++;
-            UIManager.Instance.LevelNumberChange(_levelDifficulty);
-        }
     }
 }
