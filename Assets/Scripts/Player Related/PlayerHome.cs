@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHome : MonoBehaviour
@@ -8,10 +6,12 @@ public class PlayerHome : MonoBehaviour
     private bool _playerIsHome;
     private int _homeHealth;
     private GameObject player;
+    public GameObject ammoShopInstruct;
     void Start()
     {
         _playerIsHome = false;
         _homeHealth = 5;
+        ammoShopInstruct.SetActive(false);
         UIManager.Instance.HomeLivesUpdate(_homeHealth);
         player = GameObject.Find("Player");
     }
@@ -29,6 +29,7 @@ public class PlayerHome : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _playerIsHome = true;
+            ammoShopInstruct.SetActive(true);
             GameManager.Instance.PlayerHomeStatus(_playerIsHome);
             UIManager.Instance.EnemySpawnInstructionStatus(_playerIsHome);
         }
@@ -39,6 +40,7 @@ public class PlayerHome : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _playerIsHome = false;
+            ammoShopInstruct.SetActive(false);
             GameManager.Instance.PlayerHomeStatus(_playerIsHome);
             UIManager.Instance.EnemySpawnInstructionStatus(_playerIsHome);
         }

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         get; private set;
     }
     private bool _canSpawnWave;
+    private int _BOSSLEVEL;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _level = 0;
+        _BOSSLEVEL = 15;
         _canSpawnWave = true;
         UIManager.Instance.WaveStatus(!_canSpawnWave);
         player = GameObject.Find("Player");
@@ -51,11 +53,18 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+        AllEnemeisCleared();
         if (Input.GetKeyDown(KeyCode.E) && _playerIsHome)
         {
-            SpawnWave();
+            if (_level < _BOSSLEVEL)
+            {
+                SpawnWave();
+            }
+            else
+            {
+                Debug.Log("Boss Level");
+            }
         }
-        AllEnemeisCleared();
     }
     public static event Action SpawnTheEnemies;
 

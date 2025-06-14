@@ -20,10 +20,10 @@ public class EnemyCamp : MonoBehaviour
 
     void Update()
     {
-        if(_enemyInCamp==0 && _canSpawnEnemy)
+        if (_enemyInCamp == 0 && _canSpawnEnemy)
         {
             StartCoroutine(SpawnTheEnemyGroupDelay());
-            _canSpawnEnemy=false;
+            _canSpawnEnemy = false;
         }
     }
 

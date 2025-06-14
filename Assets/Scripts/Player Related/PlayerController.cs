@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        playerLives = 2;
+        playerLives = 3;
         isPlayerAlive = true;
         _canPlayerDash = true;
         _playerSpeed = 5;
@@ -117,9 +117,9 @@ public class PlayerController : MonoBehaviour
 
     public void GunAmmoFillShop()
     {
-        if (playerScore >= 1 && this.GetComponentInChildren<PlayerAttack>()._gunAmmo < _maxAmmo)
+        if (playerScore >= 3 && this.GetComponentInChildren<PlayerAttack>()._gunAmmo < _maxAmmo)
         {
-            playerScore -= 1;
+            playerScore -= 3;
             UIManager.Instance.PlayerScoreUpdate(playerScore);
             this.GetComponentInChildren<PlayerAttack>().GunAmmoRefill(1);
         }
