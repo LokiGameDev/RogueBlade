@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -8,10 +6,7 @@ public class HealthForEnemy : MonoBehaviour
     [SerializeField]
     private int _lives;
     public TextMeshPro healthCount;
-    void Start()
-    {
-        
-    }
+    public int enemyValue;
 
     void Update()
     {
@@ -23,6 +18,7 @@ public class HealthForEnemy : MonoBehaviour
         _lives--;
         if(_lives<=0)
         {
+            GameObject.Find("Player").GetComponent<PlayerController>().AddScore(enemyValue);
             Destroy(this.gameObject);
         }
     }

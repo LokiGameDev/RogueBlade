@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Enemy Related\KnuckerShooting.cs" />
     <Compile Include="Assets\Scripts\Team Related\Turret.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Enemy Related\MiniDrone.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\HealthForEnemy.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\EnemyShooting.cs" />
     <Compile Include="Assets\Scripts\Managers\SpawnManagerForCamp.cs" />

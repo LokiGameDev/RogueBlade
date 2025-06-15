@@ -19,7 +19,6 @@ public class Bullet : MonoBehaviour
     {
         if(other.CompareTag("Enemy"))
         {
-            GameObject.Find("Player").GetComponent<PlayerController>().AddScore(1);
             Destroy(this.gameObject);
         }
         else if(other.CompareTag("EnemyCamp"))

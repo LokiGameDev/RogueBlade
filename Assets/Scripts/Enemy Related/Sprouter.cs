@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class Sprouter : MonoBehaviour
 {
-     private GameObject _player;
+    private GameObject _player;
     [SerializeField]
     private float _enemySpeed;
     [SerializeField]
-    private bool _isWalking,_isfollowing,_actionStarted;
+    private bool _isWalking, _isfollowing, _actionStarted;
     private List<System.Action> _enemyFunctions;
     private Vector3 _targetPos;
     private bool _isAttacking;
-    private bool isFirstAction,spawnTimeStarted,spawnTheGroup,isSpawning;
+    private bool isFirstAction, spawnTimeStarted, spawnTheGroup, isSpawning;
     public GameObject _miniDronePrefab;
     void Start()
     {
-        _player=GameObject.Find("Player");
-        _actionStarted=false;
-        _isWalking=false;
-        _isfollowing=false;
-        _isAttacking=false;
-        isFirstAction=true;
-        spawnTimeStarted=false;
-        spawnTheGroup=false;
-        isSpawning=false;
+        _player = GameObject.Find("Player");
+        _actionStarted = false;
+        _isWalking = false;
+        _isfollowing = false;
+        _isAttacking = false;
+        isFirstAction = true;
+        spawnTimeStarted = false;
+        spawnTheGroup = false;
+        isSpawning = false;
         _enemyFunctions = new List<System.Action> {
             EnemyWalk,
             EnemyIdle
@@ -32,69 +32,68 @@ public class Sprouter : MonoBehaviour
     }
     void Update()
     {
-        _isAttacking=GetComponent<EnemyShooting>().CheckTheAttackMode();
+        _isAttacking = GetComponent<EnemyShooting>().CheckTheAttackMode();
 
-        if(!_isAttacking)
+        if (!_isAttacking)
         {
-            float distance = Vector3.Distance(transform.position , _player.transform.position);
+            float distance = Vector3.Distance(transform.position, _player.transform.position);
 
-            if(distance <= 10)
+            if (distance <= 10)
             {
                 AttackThePlayer();
-                _actionStarted=false;
-                _isfollowing=true;
+                _actionStarted = false;
+                _isfollowing = true;
             }
-            else{
-                float distanceH = Vector3.Distance(transform.position , new Vector3(0,1.14f,0));
+            else
+            {
+                float distanceH = Vector3.Distance(transform.position, new Vector3(0, 1.14f, 0));
 
-                if(distanceH < 17 && GameManager.Instance._isPlayerHomeSafe)
+                if (distanceH < 17 && GameManager.Instance._isPlayerHomeSafe)
                 {
-                    _isWalking=false;
+                    _isWalking = false;
                 }
-                else if(distanceH<5)
+                else if (distanceH < 5)
                 {
-                    _isWalking=false;
+                    _isWalking = false;
                 }
                 else
                 {
-                    _isWalking=true;
-                    _isfollowing=false;
-                    if(!_actionStarted)
+                    _isWalking = true;
+                    _isfollowing = false;
+                    if (!_actionStarted)
                     {
                         RandomAction();
-                        _actionStarted=true;
+                        _actionStarted = true;
                     }
                 }
             }
 
-            if(_isWalking && !_isfollowing)
+            if (_isWalking && !_isfollowing)
             {
-                if(!spawnTimeStarted)
+                if (!spawnTimeStarted)
                 {
-                    isSpawning=false;
+                    isSpawning = false;
                     StartCoroutine(EnemySpawnWait());
-                    spawnTimeStarted=true;
+                    spawnTimeStarted = true;
                 }
-                else if(spawnTheGroup)
+                else if (spawnTheGroup)
                 {
-                    if(!isSpawning && !_isAttacking)
+                    if (!isSpawning && !_isAttacking)
                     {
                         StartCoroutine(EnemySpawningDelay());
-                        GameObject enemy = Instantiate(_miniDronePrefab,transform.position + new Vector3(0,0,1),_miniDronePrefab.transform.rotation);
-                        enemy.transform.SetParent(this.gameObject.transform.parent);
-                        isSpawning =true;
+                        isSpawning = true;
                     }
-                    
+
                 }
                 else
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, _targetPos,Time.deltaTime*3f);
+                    transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * 3f);
                     transform.LookAt(_targetPos);
-                    
-                    if(Vector3.Distance(transform.position,_targetPos) < 1)
+
+                    if (Vector3.Distance(transform.position, _targetPos) < 1)
                     {
-                        _isWalking=false;
-                        _actionStarted=false;
+                        _isWalking = false;
+                        _actionStarted = false;
                     }
                 }
             }
@@ -103,31 +102,32 @@ public class Sprouter : MonoBehaviour
 
     private void AttackThePlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _enemySpeed*Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _enemySpeed * Time.deltaTime);
         transform.LookAt(_player.transform);
     }
 
     private void RandomAction()
     {
         int actionIndex;
-        if(isFirstAction)
+        if (isFirstAction)
         {
             actionIndex = 0;
-            isFirstAction=false;
+            isFirstAction = false;
         }
-        else{
-            actionIndex = Random.Range(0,_enemyFunctions.Count);
+        else
+        {
+            actionIndex = Random.Range(0, _enemyFunctions.Count);
         }
         _enemyFunctions[actionIndex]();
     }
 
     private void EnemyWalk()
     {
-        float xLoc=0,zLoc=0;
+        float xLoc = 0, zLoc = 0;
 
-        _targetPos = new Vector3(xLoc,transform.position.y,zLoc);
+        _targetPos = new Vector3(xLoc, transform.position.y, zLoc);
 
-        _isWalking=true;
+        _isWalking = true;
     }
 
     private void EnemyIdle()
@@ -137,20 +137,28 @@ public class Sprouter : MonoBehaviour
 
     IEnumerator EnemyIdleWait()
     {
-        yield return new WaitForSeconds(Random.Range(2,3));
-        _actionStarted=false;
+        yield return new WaitForSeconds(Random.Range(2, 3));
+        _actionStarted = false;
     }
 
     IEnumerator EnemySpawnWait()
     {
         yield return new WaitForSeconds(6);
-        spawnTheGroup=true;
+        spawnTheGroup = true;
     }
 
     IEnumerator EnemySpawningDelay()
     {
-        yield return new WaitForSeconds(3);
-        spawnTimeStarted=false;
-        spawnTheGroup=false;
+        yield return new WaitForSeconds(0.5f);
+        SpawnTheMiniDrone();
+        yield return new WaitForSeconds(2);
+        spawnTimeStarted = false;
+        spawnTheGroup = false;
+    }
+
+    private void SpawnTheMiniDrone()
+    {
+        GameObject enemy = Instantiate(_miniDronePrefab,transform.position + new Vector3(0,0,1),_miniDronePrefab.transform.rotation);
+        enemy.transform.SetParent(this.gameObject.transform.parent);
     }
 }
