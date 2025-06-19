@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject bulletPrefab, playerSword;
+    public GameObject bulletPrefab, playerSword, playerBody;
     private bool _canFireBullet, _canSwingSword;
     public int _gunAmmo;
     private Camera maincam;
@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private float rotY;
     public TextMeshProUGUI ammoText;
     private int _maxAmmo;
+    public Animator playerAnimator;
     void Start()
     {
         _maxAmmo = 15;
@@ -33,14 +34,17 @@ public class PlayerAttack : MonoBehaviour
         rotY = Mathf.Atan2(rotation.x, rotation.z) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0, rotY, 0);
+        playerBody.transform.rotation = Quaternion.Euler(0, rotY, 0);
 
         if (Input.GetMouseButtonDown(1))
         {
             PlayerShoot();
+            playerAnimator.SetTrigger("Attack");
         }
         else if (Input.GetMouseButtonDown(0))
         {
             PlayerSwordAttack();
+            playerAnimator.SetTrigger("Attack");
         }
 
         ammoText.text = "" + _gunAmmo;

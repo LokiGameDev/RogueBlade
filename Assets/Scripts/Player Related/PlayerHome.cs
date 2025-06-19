@@ -53,7 +53,6 @@ public class PlayerHome : MonoBehaviour
 
         if (_homeHealth <= 0)
         {
-            Debug.Log("GameOver");
             GameManager.Instance.PlayerHomeDestroyed();
             this.gameObject.SetActive(false);
         }

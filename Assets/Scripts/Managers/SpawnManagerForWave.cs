@@ -26,7 +26,7 @@ public class SpawnManagerForWave : MonoBehaviour
         if (GameManager.Instance._level > 9) enemyLvlBuff = 0;
         else enemyLvlBuff = 1;
 
-        Debug.Log(enemyPrefabs.Length - enemyLvlBuff);
+        
         
         for (int i = 0; i < GameManager.Instance._level; i++)
         {
