@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private float rotY;
     public TextMeshProUGUI ammoText;
     private int _maxAmmo;
-    public Animator playerAnimator;
+    public Animator playerAnimator,playerSwordAnimator;
     void Start()
     {
         _maxAmmo = 15;
@@ -33,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
 
         rotY = Mathf.Atan2(rotation.x, rotation.z) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0, rotY, 0);
+        transform.parent.transform.rotation = Quaternion.Euler(0, rotY, 0);
         playerBody.transform.rotation = Quaternion.Euler(0, rotY, 0);
 
         if (Input.GetMouseButtonDown(1))
@@ -45,6 +45,7 @@ public class PlayerAttack : MonoBehaviour
         {
             PlayerSwordAttack();
             playerAnimator.SetTrigger("Attack");
+            playerSwordAnimator.SetTrigger("Slash");
         }
 
         ammoText.text = "" + _gunAmmo;

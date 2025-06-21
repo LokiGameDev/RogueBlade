@@ -31,7 +31,7 @@ public class Turret : MonoBehaviour
     private void ShootTheBullet(Vector3 target)
     {
         var rotation = Quaternion.Euler(90,bulletPrefab.transform.rotation.y,0);
-        GameObject bullet = Instantiate(bulletPrefab,transform.position,rotation);
+        GameObject bullet = Instantiate(bulletPrefab,transform.position + new Vector3(0,1.65f,0),rotation);
         bullet.transform.LookAt(target);
     }
 

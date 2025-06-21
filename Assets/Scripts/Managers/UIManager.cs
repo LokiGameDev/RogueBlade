@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI levelNumberText, enemyCountText, scoreText, enemyInstruct;
-    public GameObject pauseMenu;
+    public GameObject pauseMenu, gmaeOverMenu;
     private bool isWaveStarted;
     public Slider lifeBar, homeHealthBar;
     private static UIManager _instance;
@@ -78,6 +78,12 @@ public class UIManager : MonoBehaviour
         if (isWaveStarted) { enemyInstruct.gameObject.SetActive(false); }
     }
 
+    public void GameOver()
+    {
+        gmaeOverMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+
     public void PauseMenu()
     {
         pauseMenu.SetActive(true);
@@ -88,6 +94,12 @@ public class UIManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
     }
     public void QuitGame()
     {

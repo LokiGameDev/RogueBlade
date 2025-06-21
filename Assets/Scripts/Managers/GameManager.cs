@@ -98,17 +98,8 @@ public class GameManager : MonoBehaviour
         _isPlayerHomeSafe=false;
     }
 
-    public void PlayerHeartDestroyed()
+    public void GameOver()
     {
-        GameOver();
-    }
-
-    private void GameOver()
-    {
-        #if UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
-        #else
-            Application.Quit();
-        #endif
+        UIManager.Instance.GameOver();
     }
 }

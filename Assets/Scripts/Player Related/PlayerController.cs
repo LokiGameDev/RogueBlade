@@ -60,10 +60,6 @@ public class PlayerController : MonoBehaviour
         {
             dashSlider.value = (Time.time - dashStartTime) / 1.5f;
         }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            AddScore(5);
-        }
     }
 
     private void Movement()
@@ -106,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerLives < 1)
         {
-            Debug.Log("Player died");
+            GameManager.Instance.GameOver();
             isPlayerAlive = false;
         }
     }

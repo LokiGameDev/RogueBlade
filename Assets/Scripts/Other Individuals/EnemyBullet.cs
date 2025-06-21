@@ -17,18 +17,19 @@ public class EnemyBullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().GotHitByBullet();
             Destroy(this.gameObject);
         }
-        else if(other.CompareTag("PlayerHome"))
+        else if (other.CompareTag("PlayerHome"))
         {
             other.GetComponent<PlayerHome>().GotHitByBullet();
             Destroy(this.gameObject);
         }
-        else if(other.CompareTag("PlayerHeart"))
+        else if (other.CompareTag("PlayerHeart"))
         {
+            other.GetComponent<PlayerHeart>().GotHitByBullet();
             Destroy(this.gameObject);
         }
     }
