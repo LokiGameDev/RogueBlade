@@ -377,7 +377,7 @@
 "Assets/Scripts/Managers/SpawnManagerForPlayerAround.cs"
 "Assets/Scripts/Managers/SpawnManagerForWave.cs"
 "Assets/Scripts/Managers/UIManager.cs"
-"Assets/Scripts/MenuManager/MenuManager.cs"
+"Assets/Scripts/Menu Manager/MenuManager.cs"
 "Assets/Scripts/Other Individuals/Bullet.cs"
 "Assets/Scripts/Other Individuals/EnemyBullet.cs"
 "Assets/Scripts/Other Individuals/HealingZone.cs"
@@ -388,6 +388,8 @@
 "Assets/Scripts/Player Related/PlayerController.cs"
 "Assets/Scripts/Player Related/PlayerHeart.cs"
 "Assets/Scripts/Player Related/PlayerHome.cs"
+"Assets/Scripts/Save System/PlayerData.cs"
+"Assets/Scripts/Save System/SaveSystem.cs"
 "Assets/Scripts/Team Related/Turret.cs"
 "Assets/Scripts/Team Related/TurretHolder.cs"
 -langversion:9.0

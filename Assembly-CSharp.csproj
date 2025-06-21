@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemy Related\EnemyWithBound.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\Knucker.cs" />
+    <Compile Include="Assets\Scripts\Menu Manager\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\Save System\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\HealingZone.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\Sprouter.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\TurretBullet.cs" />
@@ -78,7 +80,6 @@
     <Compile Include="Assets\Scripts\Managers\SpawnManagerForCamp.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\PlayerSword.cs" />
-    <Compile Include="Assets\Scripts\MenuManager\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Common World Related\ViewWithPlayer.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\RollingGun.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\Scripts\Player Related\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\EnemyCamp.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\CampHealth.cs" />
+    <Compile Include="Assets\Scripts\Save System\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\InfoAbovePlayer.cs" />
   </ItemGroup>
   <ItemGroup>

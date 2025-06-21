@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        playerLives = 3;
         isPlayerAlive = true;
         _canPlayerDash = true;
         _playerSpeed = 5;
@@ -97,6 +96,7 @@ public class PlayerController : MonoBehaviour
 
     public void GotHitByBullet()
     {
+        Debug.Log("Geting hit" + playerLives);
         playerLives--;
         UIManager.Instance.PlayerLivesUpdate(playerLives);
 
@@ -155,5 +155,13 @@ public class PlayerController : MonoBehaviour
     {
         infoAbovePlayer.SetActive(true);
         infoAbovePlayer.GetComponentInChildren<TextMeshProUGUI>().text = "Not enough Money";
+    }
+
+    public void InitializePlayerData(int value, int score)
+    {
+        playerLives = value;
+        playerScore = score;
+        UIManager.Instance.PlayerLivesUpdate(playerLives);
+        UIManager.Instance.PlayerScoreUpdate(playerScore);
     }
 }

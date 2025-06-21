@@ -6,9 +6,10 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     private GameObject player;
+    public PlayerHome home;
     public bool _playerIsHome
     {
-        get;private set;
+        get; private set;
     }
     public bool _isPlayerHomeSafe
     {
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if(_instance==null)
+            if (_instance == null)
             {
                 Debug.LogError("GameManager is null");
             }
@@ -36,20 +37,20 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        _instance=this;
+        _instance = this;
     }
     void Start()
     {
-        _level = 0;
         _BOSSLEVEL = 15;
         _canSpawnWave = true;
         UIManager.Instance.WaveStatus(!_canSpawnWave);
-        player = GameObject.Find("Player");
-        _isPlayerHomeSafe=true;
+        player = GameObject.FindWithTag("Player");
+        LoadGame();
+        _isPlayerHomeSafe = true;
     }
     void Update()
     {
-        if (!player.GetComponent<PlayerController>().isPlayerAlive)
+        if (!(player.GetComponent<PlayerController>().isPlayerAlive))
         {
             GameOver();
         }
@@ -95,11 +96,38 @@ public class GameManager : MonoBehaviour
 
     public void PlayerHomeDestroyed()
     {
-        _isPlayerHomeSafe=false;
+        _isPlayerHomeSafe = false;
     }
 
     public void GameOver()
     {
         UIManager.Instance.GameOver();
+    }
+
+    public void SaveGame()
+    {
+        PlayerController data = player.GetComponent<PlayerController>();
+        PlayerAttack data2 = player.GetComponentInChildren<PlayerAttack>();
+        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore);
+    }
+
+    public void LoadGame()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        if (data != null)
+        {
+            _level = data.level;
+            home.InitializeHomeHealth(data.homeHealth);
+            player.GetComponent<PlayerController>().InitializePlayerData(data.playerHealth, data.playerScore);
+            player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(data.ammoCount);
+        }
+        else
+        {
+            _level = 0;
+            home.InitializeHomeHealth(5);
+            player.GetComponent<PlayerController>().InitializePlayerData(3, 0);
+            player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(0);
+        }
+        UIManager.Instance.LevelNumberChange(_level);
     }
 }

@@ -13,12 +13,11 @@ public class PlayerAttack : MonoBehaviour
     private float rotY;
     public TextMeshProUGUI ammoText;
     private int _maxAmmo;
-    public Animator playerAnimator,playerSwordAnimator;
+    public Animator playerAnimator, playerSwordAnimator;
     void Start()
     {
         _maxAmmo = 15;
         MaxAmmoCountChange(_maxAmmo);
-        _gunAmmo = 0;
         _canFireBullet = true;
         _canSwingSword = true;
         playerSword.SetActive(false);
@@ -52,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            MaxAmmoCountChange(_maxAmmo + 1);
+            GunAmmoRefill(5);
         }
 
     }
@@ -115,5 +114,10 @@ public class PlayerAttack : MonoBehaviour
     {
         _maxAmmo = count;
         GameObject.Find("Player").GetComponent<PlayerController>().MaxAmmoCountChange(_maxAmmo);
+    }
+
+    public void InitializeAmmo(int value)
+    {
+        _gunAmmo = value;
     }
 }

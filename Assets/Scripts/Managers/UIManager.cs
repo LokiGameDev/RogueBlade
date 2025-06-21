@@ -78,6 +78,14 @@ public class UIManager : MonoBehaviour
         if (isWaveStarted) { enemyInstruct.gameObject.SetActive(false); }
     }
 
+    public void SaveGame()
+    {
+        if (!isWaveStarted)
+        {
+            GameManager.Instance.SaveGame();
+        }
+    }
+
     public void GameOver()
     {
         gmaeOverMenu.SetActive(true);
@@ -107,6 +115,7 @@ public class UIManager : MonoBehaviour
     }
     public void MainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 }

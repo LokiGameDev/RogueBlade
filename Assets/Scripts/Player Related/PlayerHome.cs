@@ -4,13 +4,15 @@ public class PlayerHome : MonoBehaviour
 {
     [SerializeField]
     private bool _playerIsHome;
-    private int _homeHealth;
+    public int _homeHealth
+    {
+        get; private set;
+    }
     private GameObject player;
     public GameObject ammoShopInstruct;
     void Start()
     {
         _playerIsHome = false;
-        _homeHealth = 5;
         ammoShopInstruct.SetActive(false);
         UIManager.Instance.HomeLivesUpdate(_homeHealth);
         player = GameObject.Find("Player");
@@ -56,5 +58,11 @@ public class PlayerHome : MonoBehaviour
             GameManager.Instance.PlayerHomeDestroyed();
             this.gameObject.SetActive(false);
         }
+    }
+
+    public void InitializeHomeHealth(int value)
+    {
+        _homeHealth = value;
+        UIManager.Instance.HomeLivesUpdate(_homeHealth);
     }
 }
