@@ -6,6 +6,8 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     private GameObject player;
+    private int CURRENTSAVEINDEX = 0;
+    private string CURRENTSAVENAME;
     public PlayerHome home;
     public bool _playerIsHome
     {
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        CURRENTSAVEINDEX = CurrentSavePlay.saveIndex;
+        CURRENTSAVENAME = CurrentSavePlay.currentSaveName;
         _BOSSLEVEL = 15;
         _canSpawnWave = true;
         UIManager.Instance.WaveStatus(!_canSpawnWave);
@@ -54,7 +58,7 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
-        AllEnemeisCleared();
+        if(!_canSpawnWave) AllEnemeisCleared();
         if (Input.GetKeyDown(KeyCode.E) && _playerIsHome)
         {
             if (_level < _BOSSLEVEL)
@@ -85,6 +89,7 @@ public class GameManager : MonoBehaviour
     {
         if (GameObject.FindGameObjectsWithTag("Enemy").Count() == 0 && GameObject.FindGameObjectsWithTag("EnemyCamp").Count() == 0)
         {
+            SaveGame();
             UIManager.Instance.WaveStatus(!_canSpawnWave);
             _canSpawnWave = true;
         }
@@ -108,15 +113,16 @@ public class GameManager : MonoBehaviour
     {
         PlayerController data = player.GetComponent<PlayerController>();
         PlayerAttack data2 = player.GetComponentInChildren<PlayerAttack>();
-        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore);
+        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore, CURRENTSAVEINDEX, CURRENTSAVENAME);
     }
 
     public void LoadGame()
     {
-        PlayerData data = SaveSystem.LoadPlayer();
+        PlayerData data = SaveSystem.LoadPlayer(CURRENTSAVEINDEX);
         if (data != null)
         {
             _level = data.level;
+            CURRENTSAVENAME = data.saveName;
             home.InitializeHomeHealth(data.homeHealth);
             player.GetComponent<PlayerController>().InitializePlayerData(data.playerHealth, data.playerScore);
             player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(data.ammoCount);
@@ -127,6 +133,7 @@ public class GameManager : MonoBehaviour
             home.InitializeHomeHealth(5);
             player.GetComponent<PlayerController>().InitializePlayerData(3, 0);
             player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(0);
+            SaveGame();
         }
         UIManager.Instance.LevelNumberChange(_level);
     }

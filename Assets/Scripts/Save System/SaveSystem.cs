@@ -4,24 +4,29 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavePlayer(int playerH, int ammo, int homeH, int score)
+    static string[] allPath = new string[] {
+        Application.persistentDataPath + "/save1.loki",
+        Application.persistentDataPath + "/save2.loki",
+        Application.persistentDataPath + "/save3.loki"
+    };
+
+    public static void SavePlayer(int playerH, int ammo, int homeH, int score, int index, string name)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.loki";
+        string path = allPath[index];
 
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(playerH, ammo, homeH, score);
+        PlayerData data = new PlayerData(playerH, ammo, homeH, score, name);
 
         formatter.Serialize(stream, data);
         stream.Close();
-
-        Debug.Log("Saved Successfully");
     }
 
-    public static PlayerData LoadPlayer()
+    public static PlayerData LoadPlayer(int index)
     {
-        string path = Application.persistentDataPath + "/player.loki";
+        string path = allPath[index];
+
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -33,7 +38,6 @@ public static class SaveSystem
         }
         else
         {
-            Debug.Log("Save file is not found");
             return null;
         }
     }

@@ -1,12 +1,18 @@
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameObject saveFilePanels;
+    public GameObject startPanel;
+    void Start()
+    {
+        startPanel.SetActive(true);
+        saveFilePanels.SetActive(false);
+    }
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        startPanel.SetActive(false);
+        saveFilePanels.SetActive(true);
     }
 
     public void QuitGame()
