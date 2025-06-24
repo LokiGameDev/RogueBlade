@@ -116,7 +116,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerController data = player.GetComponent<PlayerController>();
         PlayerAttack data2 = player.GetComponentInChildren<PlayerAttack>();
-        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore, CURRENTSAVEINDEX, CURRENTSAVENAME);
+        string dateTime = "" + DateTime.Now;
+        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore, CURRENTSAVEINDEX, CURRENTSAVENAME, dateTime);
     }
 
     public void LoadGame()
@@ -129,6 +130,7 @@ public class GameManager : MonoBehaviour
             home.InitializeHomeHealth(data.homeHealth);
             player.GetComponent<PlayerController>().InitializePlayerData(data.playerHealth, data.playerScore);
             player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(data.ammoCount);
+
         }
         else
         {
@@ -137,13 +139,11 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerController>().InitializePlayerData(3, 0);
             player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(0);
             SaveGame();
+            generalInstruction.SetActive(true);
+            generalInstruction.GetComponent<InstructionManager>().InstructionPlay(0);
+            Time.timeScale = 0;
         }
         UIManager.Instance.LevelNumberChange(_level);
-
-        // Should put it in the else for displaying only for the first time
-        generalInstruction.SetActive(true);
-        generalInstruction.GetComponent<InstructionManager>().InstructionPlay(0);
-        Time.timeScale = 0;
     }
 
     public void HomeHealth()

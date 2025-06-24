@@ -29,14 +29,14 @@ public class SaveDetailsLoader : MonoBehaviour
             hasSaveFile[index] = false;
             saveNameText[index].text = "Loki" + index;
             levelText[index].text = "Level : ";
-            dateAndTimeText[index].text = "Date";
+            dateAndTimeText[index].text = "";
         }
         else
         {
             hasSaveFile[index] = true;
             saveNameText[index].text = data.saveName;
             levelText[index].text = "Level : " + data.level;
-            dateAndTimeText[index].text = "Date";
+            dateAndTimeText[index].text = "" + data.dateTimeInfo;
         }
     }
 
