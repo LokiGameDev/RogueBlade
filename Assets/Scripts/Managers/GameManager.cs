@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private int CURRENTSAVEINDEX = 0;
     private string CURRENTSAVENAME;
     public PlayerHome home;
+    public GameObject generalInstruction;
     public bool _playerIsHome
     {
         get; private set;
@@ -54,21 +55,14 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (!(player.GetComponent<PlayerController>().isPlayerAlive))
+        if (!player.GetComponent<PlayerController>().isPlayerAlive)
         {
             GameOver();
         }
-        if(!_canSpawnWave) AllEnemeisCleared();
+        if (!_canSpawnWave) AllEnemeisCleared();
         if (Input.GetKeyDown(KeyCode.E) && _playerIsHome)
         {
-            if (_level < _BOSSLEVEL)
-            {
-                SpawnWave();
-            }
-            else
-            {
-                Debug.Log("Boss Level");
-            }
+            SpawnWave();
         }
     }
     public static event Action SpawnTheEnemies;
@@ -90,8 +84,17 @@ public class GameManager : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Enemy").Count() == 0 && GameObject.FindGameObjectsWithTag("EnemyCamp").Count() == 0)
         {
             SaveGame();
-            UIManager.Instance.WaveStatus(!_canSpawnWave);
-            _canSpawnWave = true;
+            if (_level == _BOSSLEVEL)
+            {
+                UIManager.Instance.WaveStatus(!_canSpawnWave);
+                _canSpawnWave = true;
+                UIManager.Instance.GameWon();
+            }
+            else
+            {
+                UIManager.Instance.WaveStatus(!_canSpawnWave);
+                _canSpawnWave = true;
+            }
         }
     }
     public void PlayerHomeStatus(bool status)
@@ -136,5 +139,28 @@ public class GameManager : MonoBehaviour
             SaveGame();
         }
         UIManager.Instance.LevelNumberChange(_level);
+
+        // Should put it in the else for displaying only for the first time
+        generalInstruction.SetActive(true);
+        generalInstruction.GetComponent<InstructionManager>().InstructionPlay(0);
+        Time.timeScale = 0;
+    }
+
+    public void HomeHealth()
+    {
+        if (home._homeHealth < 5)
+        {
+            player.GetComponent<PlayerController>().HomeHealthRefill();
+        }
+    }
+
+    public void RefillHomeHealth()
+    {
+        home.HomeHealthIncrease(1);
+    }
+
+    public void GeneralInstructions(bool status)
+    {
+        generalInstruction.SetActive(status);
     }
 }

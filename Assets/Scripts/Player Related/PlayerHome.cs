@@ -60,6 +60,12 @@ public class PlayerHome : MonoBehaviour
         }
     }
 
+    public void HomeHealthIncrease(int val)
+    {
+        _homeHealth += val;
+        UIManager.Instance.HomeLivesUpdate(_homeHealth);
+    }
+
     public void InitializeHomeHealth(int value)
     {
         _homeHealth = value;

@@ -66,11 +66,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemy Related\EnemyWithBound.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\Knucker.cs" />
+    <Compile Include="Assets\Scripts\Other Individuals\HomeHealthShop.cs" />
     <Compile Include="Assets\Scripts\Menu Manager\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Save System\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\HealingZone.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\Sprouter.cs" />
     <Compile Include="Assets\Scripts\Menu Manager\SaveDetailsLoader.cs" />
+    <Compile Include="Assets\Scripts\Managers\InstructionManager.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\TurretBullet.cs" />
     <Compile Include="Assets\Scripts\Save System\CurrentSavePlay.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\KnuckerShooting.cs" />

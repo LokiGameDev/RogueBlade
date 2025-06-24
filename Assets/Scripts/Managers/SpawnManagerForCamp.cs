@@ -25,6 +25,7 @@ public class SpawnManagerForCamp : MonoBehaviour
     {
         int spawnCount = GameManager.Instance._level / 2;
         if (spawnCount < 1) spawnCount = 1;
+        if (spawnCount > 7) spawnCount = 7;
         List<int> spawnLoc = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7 };
         for (int i = 0; i < spawnCount; i++)
         {

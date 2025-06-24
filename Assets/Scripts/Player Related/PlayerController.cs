@@ -140,6 +140,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void HomeHealthRefill()
+    {
+        if (playerScore >= 5)
+        {
+            GameManager.Instance.RefillHomeHealth();
+            playerScore -= 5;
+            UIManager.Instance.PlayerScoreUpdate(playerScore);
+        }
+        else
+        {
+            InsufficientMoneyInfo();
+        }
+    }
+
     public void InsufficientAmmoInfo()
     {
         infoAbovePlayer.SetActive(true);
