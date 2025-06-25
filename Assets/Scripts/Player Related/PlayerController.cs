@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && _canPlayerDash)
         {
             _canPlayerDash = false;
+            GameManager.Instance.PlayAudioClip(0);
             dashStartTime = Time.time;
             _playerRigid.velocity = playerAim.transform.forward * _playerSpeed * 8;
             playerAnimator.SetTrigger("Dash");

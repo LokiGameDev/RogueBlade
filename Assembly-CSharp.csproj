@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Enemy Related\EnemyCamp.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\CampHealth.cs" />
     <Compile Include="Assets\Scripts\Save System\SaveSystem.cs" />
+    <Compile Include="Assets\Scripts\Enemy Related\EnemyEffectObject.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\InfoAbovePlayer.cs" />
   </ItemGroup>
   <ItemGroup>

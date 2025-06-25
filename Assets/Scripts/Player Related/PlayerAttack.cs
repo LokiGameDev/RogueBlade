@@ -38,11 +38,13 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             PlayerShoot();
+            GameManager.Instance.PlayAudioClip(2);
             playerAnimator.SetTrigger("Attack");
         }
         else if (Input.GetMouseButtonDown(0))
         {
             PlayerSwordAttack();
+            GameManager.Instance.PlayAudioClip(1);
             playerAnimator.SetTrigger("Attack");
             playerSwordAnimator.SetTrigger("Slash");
         }

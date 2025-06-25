@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using System;
 using System.Linq;
@@ -9,7 +8,10 @@ public class GameManager : MonoBehaviour
     private int CURRENTSAVEINDEX = 0;
     private string CURRENTSAVENAME;
     public PlayerHome home;
-    public GameObject generalInstruction;
+    public GameObject generalInstruction, enemyDeathEffectPrefab;
+    public AudioSource effectsAudioSource;
+    public AudioClip[] effectsAudioClips;
+
     public bool _playerIsHome
     {
         get; private set;
@@ -162,5 +164,17 @@ public class GameManager : MonoBehaviour
     public void GeneralInstructions(bool status)
     {
         generalInstruction.SetActive(status);
+    }
+
+    public void PlayAudioClip(int index)
+    {
+        effectsAudioSource.clip = effectsAudioClips[index];
+        effectsAudioSource.Play();
+    }
+
+    public void EnemyDeathEffectPlay(Vector3 pos)
+    {
+        Vector3 position = new Vector3(pos.x, 0.4f, pos.z);
+        Instantiate(enemyDeathEffectPrefab, position, enemyDeathEffectPrefab.transform.rotation);
     }
 }

@@ -19,6 +19,8 @@ public class HealthForEnemy : MonoBehaviour
         if(_lives<=0)
         {
             GameObject.Find("Player").GetComponent<PlayerController>().AddScore(enemyValue);
+            GameManager.Instance.EnemyDeathEffectPlay(transform.position);
+            GameManager.Instance.PlayAudioClip(3);
             Destroy(this.gameObject);
         }
     }

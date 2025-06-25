@@ -363,6 +363,7 @@
 "Assets/Scripts/Common World Related/ViewWithPlayer.cs"
 "Assets/Scripts/Enemy Related/CampHealth.cs"
 "Assets/Scripts/Enemy Related/EnemyCamp.cs"
+"Assets/Scripts/Enemy Related/EnemyEffectObject.cs"
 "Assets/Scripts/Enemy Related/EnemyPlayerAttacker.cs"
 "Assets/Scripts/Enemy Related/EnemyShooting.cs"
 "Assets/Scripts/Enemy Related/EnemyWithBound.cs"
