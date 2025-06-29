@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - CampHealth
     - EnemyBullet
     - EnemyCamp
+    - EnemyEffectObject
     - EnemyShooting
     - EnemyWithBound
     - GameManager
@@ -24,6 +25,7 @@ ScriptsOnlyBuild:
     - PlayerSword
     - RollingGun
     - SaveDetailsLoader
+    - SettingsManager
     - SpawnManagerForCamp
     - SpawnManagerForWave
     - Sprouter
@@ -68,6 +70,8 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.RawImage
     - UnityEngine.UI.RectMask2D
     - UnityEngine.UI.Slider
+    - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
   serializedClasses:
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
@@ -102,10 +106,12 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.AnimationTriggers
     - UnityEngine.UI.Button/ButtonClickedEvent
     - UnityEngine.UI.ColorBlock
+    - UnityEngine.UI.FontData
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
     - UnityEngine.UI.Navigation
     - UnityEngine.UI.Slider/SliderEvent
     - UnityEngine.UI.SpriteState
+    - UnityEngine.UI.Toggle/ToggleEvent
   methodsToPreserve:
   - assembly: Assembly-CSharp
     fullTypeName: MenuManager
@@ -114,8 +120,29 @@ ScriptsOnlyBuild:
     fullTypeName: MenuManager
     methodName: QuitGame
   - assembly: Assembly-CSharp
+    fullTypeName: MenuManager
+    methodName: BackButton
+  - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: PanelEnabler
+  - assembly: Assembly-CSharp
     fullTypeName: SaveDetailsLoader
     methodName: CancelSaveFile
+  - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: MusicVolumeChange
+  - assembly: Assembly-CSharp
+    fullTypeName: MenuManager
+    methodName: BackButton
+  - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: PanelEnabler
+  - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: MusicVolumeChange
+  - assembly: Assembly-CSharp
+    fullTypeName: MenuManager
+    methodName: SettingsPanel
   - assembly: Assembly-CSharp
     fullTypeName: SaveDetailsLoader
     methodName: OpenGame
@@ -147,17 +174,35 @@ ScriptsOnlyBuild:
     fullTypeName: UIManager
     methodName: MainMenu
   - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: MusicVolumeChange
+  - assembly: Assembly-CSharp
     fullTypeName: UIManager
     methodName: SaveGame
   - assembly: Assembly-CSharp
     fullTypeName: UIManager
+    methodName: SettingsMenu
+  - assembly: Assembly-CSharp
+    fullTypeName: UIManager
     methodName: MainMenu
   - assembly: Assembly-CSharp
     fullTypeName: UIManager
     methodName: MainMenu
+  - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: PanelEnabler
+  - assembly: Assembly-CSharp
+    fullTypeName: UIManager
+    methodName: SettingsBack
   - assembly: Assembly-CSharp
     fullTypeName: UIManager
     methodName: QuitGame
+  - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: PanelEnabler
+  - assembly: Assembly-CSharp
+    fullTypeName: SettingsManager
+    methodName: MusicVolumeChange
   - assembly: Assembly-CSharp
     fullTypeName: UIManager
     methodName: QuitGame
@@ -196,6 +241,10 @@ ScriptsOnlyBuild:
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 84
       Script: {instanceID: 0}
@@ -256,11 +305,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 19852}
     - Class: 114
+      Script: {instanceID: 20110}
+    - Class: 114
       Script: {instanceID: 20162}
     - Class: 114
       Script: {instanceID: 20234}
     - Class: 114
       Script: {instanceID: 20428}
+    - Class: 114
+      Script: {instanceID: 20508}
     - Class: 114
       Script: {instanceID: 20892}
     - Class: 114
@@ -270,23 +323,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 21036}
     - Class: 114
-      Script: {instanceID: 21324}
+      Script: {instanceID: 21266}
     - Class: 114
-      Script: {instanceID: 21370}
+      Script: {instanceID: 21326}
     - Class: 114
-      Script: {instanceID: 21392}
+      Script: {instanceID: 21372}
     - Class: 114
-      Script: {instanceID: 21928}
+      Script: {instanceID: 21394}
     - Class: 114
-      Script: {instanceID: 22658}
+      Script: {instanceID: 21930}
     - Class: 114
-      Script: {instanceID: 22724}
+      Script: {instanceID: 22660}
     - Class: 114
-      Script: {instanceID: 22898}
+      Script: {instanceID: 22726}
     - Class: 114
-      Script: {instanceID: 22916}
+      Script: {instanceID: 22828}
     - Class: 114
-      Script: {instanceID: 23162}
+      Script: {instanceID: 22902}
+    - Class: 114
+      Script: {instanceID: 22920}
+    - Class: 114
+      Script: {instanceID: 23166}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -332,6 +389,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 104
@@ -365,11 +426,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 20048}
     - Class: 114
+      Script: {instanceID: 20110}
+    - Class: 114
+      Script: {instanceID: 20162}
+    - Class: 114
       Script: {instanceID: 20234}
+    - Class: 114
+      Script: {instanceID: 20508}
     - Class: 114
       Script: {instanceID: 20978}
     - Class: 114
-      Script: {instanceID: 21324}
+      Script: {instanceID: 21266}
+    - Class: 114
+      Script: {instanceID: 21326}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -557,7 +626,7 @@ ScriptsOnlyBuild:
     className: EnemyPlayerAttacker
   - hash:
       serializedVersion: 2
-      Hash: ce9a8ad621180a03c32563005c4cdf36
+      Hash: 13ee9c7ed2f6201b2c9eb83c5e556cab
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameManager
@@ -887,7 +956,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 1e4c0b663e7b4cd7156ae1ac4f16a44a
+      Hash: c6cb4d87fa9cf85cf01213a2982ea22a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIManager
@@ -941,7 +1010,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: a143693db39662ecb7d1ae4a45dea62c
+      Hash: 81b82ef227c5cf3830494ddd38c2ced5
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: MenuManager
@@ -1127,10 +1196,16 @@ ScriptsOnlyBuild:
     className: UnityOnMouseUpAsButtonMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 53b7731ef209c9b679a120afe3c68d63
+      Hash: 7b60644c2812c8e647b2527f5a60eea9
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Turret
+  - hash:
+      serializedVersion: 2
+      Hash: bda2ba0eaa8a22d5b70fe4e7c6e74953
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SettingsManager
   - hash:
       serializedVersion: 2
       Hash: 4f353524ce6564e40764f1ea080b2d85
@@ -1379,6 +1454,12 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
+      Hash: 4220cea40e5f933cacb2acf9564e3388
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: EnemyEffectObject
+  - hash:
+      serializedVersion: 2
       Hash: e5b145607bf40691a1cb1dda7e018c7a
     assemblyName: Assembly-CSharp
     namespaceName: 
@@ -1435,4 +1516,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/Main.unity
-  playerPath: F:/Game Working/RogueBlade/Builds/RogueBlade.exe
+  playerPath: F:/Game Working/RogueBlade/Builds/RogueBlade v1.0/RogueBlade.exe
