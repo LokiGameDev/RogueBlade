@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     {
         CURRENTSAVEINDEX = CurrentSavePlay.saveIndex;
         CURRENTSAVENAME = CurrentSavePlay.currentSaveName;
+        effectsAudioSource.volume = PlayerPrefs.GetFloat("SFXVolume");
+        GameObject.Find("Main Camera").GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("MusicV");
         _BOSSLEVEL = 15;
         _canSpawnWave = true;
         UIManager.Instance.WaveStatus(!_canSpawnWave);
@@ -61,10 +63,13 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
-        if (!_canSpawnWave) AllEnemeisCleared();
-        if (Input.GetKeyDown(KeyCode.E) && _playerIsHome)
+        else
         {
-            SpawnWave();
+            if (!_canSpawnWave) AllEnemeisCleared();
+            if (Input.GetKeyDown(KeyCode.E) && _playerIsHome)
+            {
+                SpawnWave();
+            }
         }
     }
     public static event Action SpawnTheEnemies;
@@ -176,5 +181,11 @@ public class GameManager : MonoBehaviour
     {
         Vector3 position = new Vector3(pos.x, 0.4f, pos.z);
         Instantiate(enemyDeathEffectPrefab, position, enemyDeathEffectPrefab.transform.rotation);
+    }
+
+    public void AudioLevelChange()
+    {
+        effectsAudioSource.volume = PlayerPrefs.GetFloat("SFXVolume");
+        GameObject.Find("Main Camera").GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("MusicV");
     }
 }

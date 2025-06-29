@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Other Individuals\HealingZone.cs" />
     <Compile Include="Assets\Scripts\Enemy Related\Sprouter.cs" />
     <Compile Include="Assets\Scripts\Menu Manager\SaveDetailsLoader.cs" />
+    <Compile Include="Assets\Scripts\Menu Manager\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\Managers\InstructionManager.cs" />
     <Compile Include="Assets\Scripts\Other Individuals\TurretBullet.cs" />
     <Compile Include="Assets\Scripts\Save System\CurrentSavePlay.cs" />

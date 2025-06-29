@@ -7,6 +7,7 @@ public class InstructionManager : MonoBehaviour
 
     public void InstructionPlay(int val)
     {
+        UIManager.Instance.PanelOpenStatus(true);
         if (val == 2)
         {
             val = generalInstructions.transform.childCount - _instructionIndex;
@@ -23,6 +24,7 @@ public class InstructionManager : MonoBehaviour
             {
                 Time.timeScale = 1;
                 GameManager.Instance.GeneralInstructions(false);
+                UIManager.Instance.PanelOpenStatus(false);
             }
             else
             {

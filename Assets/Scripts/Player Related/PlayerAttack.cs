@@ -34,27 +34,19 @@ public class PlayerAttack : MonoBehaviour
 
         transform.parent.transform.rotation = Quaternion.Euler(0, rotY, 0);
         playerBody.transform.rotation = Quaternion.Euler(0, rotY, 0);
-
-        if (Input.GetMouseButtonDown(1))
+        if (!UIManager.Instance.isPanelOpen)
         {
-            PlayerShoot();
-            GameManager.Instance.PlayAudioClip(2);
-            playerAnimator.SetTrigger("Attack");
+            if (Input.GetMouseButtonDown(1))
+            {
+                PlayerShoot();
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                PlayerSwordAttack();
+            }
         }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            PlayerSwordAttack();
-            GameManager.Instance.PlayAudioClip(1);
-            playerAnimator.SetTrigger("Attack");
-            playerSwordAnimator.SetTrigger("Slash");
-        }
-
+        
         ammoText.text = "" + _gunAmmo;
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            GunAmmoRefill(5);
-        }
 
     }
 
@@ -71,6 +63,10 @@ public class PlayerAttack : MonoBehaviour
             _canFireBullet = false;
 
             _gunAmmo--;
+
+            GameManager.Instance.PlayAudioClip(2);
+
+            playerAnimator.SetTrigger("Attack");
 
             StartCoroutine(BulletFireCooldown());
         }
@@ -90,6 +86,12 @@ public class PlayerAttack : MonoBehaviour
             _canSwingSword = false;
 
             StartCoroutine(SwordSwingCooldown());
+
+            GameManager.Instance.PlayAudioClip(1);
+
+            playerAnimator.SetTrigger("Attack");
+            
+            playerSwordAnimator.SetTrigger("Slash");
         }
     }
 

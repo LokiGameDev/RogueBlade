@@ -381,6 +381,7 @@
 "Assets/Scripts/Managers/UIManager.cs"
 "Assets/Scripts/Menu Manager/MenuManager.cs"
 "Assets/Scripts/Menu Manager/SaveDetailsLoader.cs"
+"Assets/Scripts/Menu Manager/SettingsManager.cs"
 "Assets/Scripts/Other Individuals/Bullet.cs"
 "Assets/Scripts/Other Individuals/EnemyBullet.cs"
 "Assets/Scripts/Other Individuals/HealingZone.cs"

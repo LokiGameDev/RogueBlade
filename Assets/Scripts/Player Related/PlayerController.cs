@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         _playerRigid = GetComponent<Rigidbody>();
         infoAbovePlayer.gameObject.SetActive(false);
 
-        UIManager.Instance.PlayerScoreUpdate(playerScore);
+        UIManager.Instance.PlayerScoreUpdate(0,playerScore);
         UIManager.Instance.PlayerLivesUpdate(playerLives);
     }
 
@@ -85,19 +85,18 @@ public class PlayerController : MonoBehaviour
 
     public void AddScore(int score)
     {
+        UIManager.Instance.PlayerScoreUpdate(playerScore,playerScore += score);
         playerScore += score;
-        UIManager.Instance.PlayerScoreUpdate(playerScore);
     }
 
     public void ReduceScore(int score)
     {
+        UIManager.Instance.PlayerScoreUpdate(playerScore, playerScore -= score);
         playerScore -= score;
-        UIManager.Instance.PlayerScoreUpdate(playerScore);
     }
 
     public void GotHitByBullet()
     {
-        Debug.Log("Geting hit" + playerLives);
         playerLives--;
         UIManager.Instance.PlayerLivesUpdate(playerLives);
 
@@ -126,8 +125,8 @@ public class PlayerController : MonoBehaviour
     {
         if (playerScore >= 3 && this.GetComponentInChildren<PlayerAttack>()._gunAmmo < _maxAmmo)
         {
+            UIManager.Instance.PlayerScoreUpdate(playerScore,playerScore -= 3);
             playerScore -= 3;
-            UIManager.Instance.PlayerScoreUpdate(playerScore);
             this.GetComponentInChildren<PlayerAttack>().GunAmmoRefill(1);
         }
         else if (this.GetComponentInChildren<PlayerAttack>()._gunAmmo >= _maxAmmo)
@@ -146,8 +145,8 @@ public class PlayerController : MonoBehaviour
         if (playerScore >= 5)
         {
             GameManager.Instance.RefillHomeHealth();
+            UIManager.Instance.PlayerScoreUpdate(playerScore, playerScore -= 5);
             playerScore -= 5;
-            UIManager.Instance.PlayerScoreUpdate(playerScore);
         }
         else
         {
@@ -177,6 +176,6 @@ public class PlayerController : MonoBehaviour
         playerLives = value;
         playerScore = score;
         UIManager.Instance.PlayerLivesUpdate(playerLives);
-        UIManager.Instance.PlayerScoreUpdate(playerScore);
+        UIManager.Instance.PlayerScoreUpdate(0,playerScore);
     }
 }
