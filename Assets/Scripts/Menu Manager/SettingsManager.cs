@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
@@ -53,6 +54,6 @@ public class SettingsManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("MusicV", musicSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
-        GameManager.Instance.AudioLevelChange();
+        if(SceneManager.GetActiveScene().name=="Main") GameManager.Instance.AudioLevelChange();
     }
 }
