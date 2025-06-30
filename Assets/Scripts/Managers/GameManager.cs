@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject generalInstruction, enemyDeathEffectPrefab;
     public AudioSource effectsAudioSource;
     public AudioClip[] effectsAudioClips;
+    public bool[] turretStatus;
 
     public bool _playerIsHome
     {
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour
         PlayerController data = player.GetComponent<PlayerController>();
         PlayerAttack data2 = player.GetComponentInChildren<PlayerAttack>();
         string dateTime = "" + DateTime.Now;
-        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore, CURRENTSAVEINDEX, CURRENTSAVENAME, dateTime);
+        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore, CURRENTSAVEINDEX, CURRENTSAVENAME, dateTime, turretStatus);
     }
 
     public void LoadGame()
@@ -137,7 +138,7 @@ public class GameManager : MonoBehaviour
             home.InitializeHomeHealth(data.homeHealth);
             player.GetComponent<PlayerController>().InitializePlayerData(data.playerHealth, data.playerScore);
             player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(data.ammoCount);
-
+            turretStatus = data.turretStatus;
         }
         else
         {
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour
             home.InitializeHomeHealth(5);
             player.GetComponent<PlayerController>().InitializePlayerData(3, 0);
             player.GetComponentInChildren<PlayerAttack>().InitializeAmmo(0);
+            turretStatus = new bool[] {false,false,false,false};
             SaveGame();
             generalInstruction.SetActive(true);
             generalInstruction.GetComponent<InstructionManager>().InstructionPlay(0);
@@ -159,6 +161,12 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<PlayerController>().HomeHealthRefill();
         }
+    }
+
+    public void TurretGotSpawned(int index)
+    {
+        turretStatus[index] = true;
+        SaveGame();
     }
 
     public void RefillHomeHealth()

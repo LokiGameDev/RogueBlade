@@ -29,6 +29,8 @@ ScriptsOnlyBuild:
     - SpawnManagerForCamp
     - SpawnManagerForWave
     - Sprouter
+    - Turret
+    - TurretBullet
     - TurretHolder
     - UIManager
     - ViewWithPlayer
@@ -283,6 +285,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 18338}
     - Class: 114
+      Script: {instanceID: 18388}
+    - Class: 114
       Script: {instanceID: 18502}
     - Class: 114
       Script: {instanceID: 18516}
@@ -322,6 +326,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 21010}
     - Class: 114
       Script: {instanceID: 21036}
+    - Class: 114
+      Script: {instanceID: 21202}
     - Class: 114
       Script: {instanceID: 21266}
     - Class: 114

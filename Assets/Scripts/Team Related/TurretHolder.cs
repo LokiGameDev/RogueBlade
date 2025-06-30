@@ -9,6 +9,7 @@ public class TurretHolder : MonoBehaviour
     public TextMeshPro instructionText2;
     private bool _isInsideHolder = false;
     private PlayerController _player;
+    public int index;
 
     void Start()
     {
@@ -19,23 +20,35 @@ public class TurretHolder : MonoBehaviour
     }
     void Update()
     {
-        if (_isInsideHolder)
+        if (GameManager.Instance.turretStatus[index])
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            TurretSpawnFunction();
+        }
+        else
+        {
+            if (_isInsideHolder)
             {
-                if (_player.playerScore >= 50)
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    Instantiate(turretPrefab, transform.position, turretPrefab.transform.rotation);
-                    _player.ReduceScore(50);
-                    Destroy(this.gameObject);
-                }
-                else
-                {
-                    _player.GetComponent<PlayerController>().InsufficientMoneyInfo();
+                    if (_player.playerScore >= 50)
+                    {
+                        GameManager.Instance.TurretGotSpawned(index);
+                        _player.ReduceScore(50);
+                        TurretSpawnFunction();
+                    }
+                    else
+                    {
+                        _player.GetComponent<PlayerController>().InsufficientMoneyInfo();
+                    }
                 }
             }
         }
+    }
 
+    public void TurretSpawnFunction()
+    {
+        Instantiate(turretPrefab, transform.position, turretPrefab.transform.rotation);
+        Destroy(this.gameObject);
     }
     void OnTriggerEnter(Collider other)
     {

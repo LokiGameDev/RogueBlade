@@ -10,14 +10,14 @@ public static class SaveSystem
         Application.persistentDataPath + "/save3.loki"
     };
 
-    public static void SavePlayer(int playerH, int ammo, int homeH, int score, int index, string name,string dateTime)
+    public static void SavePlayer(int playerH, int ammo, int homeH, int score, int index, string name,string dateTime,bool[] turStatus)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = allPath[index];
 
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(playerH, ammo, homeH, score, name, dateTime);
+        PlayerData data = new PlayerData(playerH, ammo, homeH, score, name, dateTime,turStatus);
 
         formatter.Serialize(stream, data);
         stream.Close();

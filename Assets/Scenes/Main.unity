@@ -4693,6 +4693,7 @@ MonoBehaviour:
   groundPanel: {fileID: 272074695}
   instructionText: {fileID: 1812911329}
   instructionText2: {fileID: 1007269484}
+  index: 2
 --- !u!65 &589633083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11249,6 +11250,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bd8e835ca3718b54fb1d6381f63db526, type: 3}
   - {fileID: 8300000, guid: 19816401e93db76498a31898b2aeaa66, type: 3}
   - {fileID: 8300000, guid: 7eec39ab107a8d0409f125e63a5691d8, type: 3}
+  turretStatus: 
 --- !u!1 &1110134748
 GameObject:
   m_ObjectHideFlags: 0
@@ -17130,6 +17132,7 @@ MonoBehaviour:
   groundPanel: {fileID: 723497592}
   instructionText: {fileID: 2129122139}
   instructionText2: {fileID: 391420766}
+  index: 3
 --- !u!65 &1849572358
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19450,6 +19453,7 @@ MonoBehaviour:
   groundPanel: {fileID: 2048215957}
   instructionText: {fileID: 593258076}
   instructionText2: {fileID: 168767085}
+  index: 0
 --- !u!1 &2065012565
 GameObject:
   m_ObjectHideFlags: 0
@@ -19604,6 +19608,7 @@ MonoBehaviour:
   groundPanel: {fileID: 341974468}
   instructionText: {fileID: 1670931488}
   instructionText2: {fileID: 1266423225}
+  index: 1
 --- !u!65 &2086244941
 BoxCollider:
   m_ObjectHideFlags: 0
