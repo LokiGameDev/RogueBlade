@@ -8,9 +8,11 @@ Rogue Blade is a top down wave type game where you need to protect your home fro
 
 ## 🛠️ Built With
 
-- [Unity](https://unity.com/)
-- [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
-- [Built-in Render Pipeline](https://unity.com/releases/editor/whats-new)
+| **Tech** | **Tools** |
+|:------:|:------:|
+| Engine | Unity |
+| Models | Blender |
+| Version Control | Github |
 
 ## Play the game
 
@@ -18,7 +20,7 @@ Rogue Blade is a top down wave type game where you need to protect your home fro
 
 ## 🎮 Gameplay
 
-| Action | Key |
+| **Action** | **Key** |
 |:------:|:------:|
 | Move | WASD |
 | Dash | Left Shift |
