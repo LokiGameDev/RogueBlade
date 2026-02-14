@@ -33,3 +33,7 @@ Rogue Blade is a top down wave type game where you need to protect your home fro
   <img src="./Screenshots/img6.png" width="400"/>
   <img src="./Screenshots/img7.png" width="400"/>
 </p>
+
+## 🎥 Gameplay Video
+
+👉 [Gameplay Trailer](https://youtu.be/0GCCgmywXb0)
