@@ -1,10 +1,10 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
     public GameObject bulletPrefab, playerSword, playerBody;
     private bool _canFireBullet, _canSwingSword;
     public int _gunAmmo;
@@ -24,6 +24,34 @@ public class PlayerAttack : MonoBehaviour
         maincam = GameObject.Find("PlayerAttackCam").GetComponent<Camera>();
     }
 
+    private void OnEnable()
+    {
+        inputReader.OnPlayerAttack += HandlePlayerAttack;
+        inputReader.OnPlayerThrow += HandlePlayerThrow;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnPlayerAttack -= HandlePlayerAttack;
+        inputReader.OnPlayerThrow -= HandlePlayerThrow;
+    }
+
+    private void HandlePlayerAttack()
+    {
+        if (!UIManager.Instance.isPanelOpen)
+        {
+            PlayerSwordAttack();
+        }
+    }
+
+    private void HandlePlayerThrow()
+    {
+        if (!UIManager.Instance.isPanelOpen)
+        {
+            PlayerShoot();
+        }
+    }
+
     void Update()
     {
         mousePos = maincam.ScreenToWorldPoint(Input.mousePosition);
@@ -34,17 +62,6 @@ public class PlayerAttack : MonoBehaviour
 
         transform.parent.transform.rotation = Quaternion.Euler(0, rotY, 0);
         playerBody.transform.rotation = Quaternion.Euler(0, rotY, 0);
-        if (!UIManager.Instance.isPanelOpen)
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                PlayerShoot();
-            }
-            else if (Input.GetMouseButtonDown(0))
-            {
-                PlayerSwordAttack();
-            }
-        }
         
         ammoText.text = "" + _gunAmmo;
 

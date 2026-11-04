@@ -1,8 +1,10 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class TurretHolder : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
     public GameObject turretPrefab;
     public GameObject groundPanel;
     public TextMeshPro instructionText;
@@ -17,30 +19,36 @@ public class TurretHolder : MonoBehaviour
         instructionText2.gameObject.SetActive(false);
         _player = GameObject.Find("Player").GetComponent<PlayerController>();
         groundPanel.SetActive(false);
-    }
-    void Update()
-    {
+
         if (GameManager.Instance.turretStatus[index])
         {
             TurretSpawnFunction();
         }
-        else
+    }
+
+    private void OnEnable()
+    {
+        inputReader.OnPlayerTurretBuild += HandleTurretBuild;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnPlayerTurretBuild -= HandleTurretBuild;
+    }
+
+    private void HandleTurretBuild()
+    {
+        if (_isInsideHolder)
         {
-            if (_isInsideHolder)
+            if (_player.playerScore >= 50)
             {
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    if (_player.playerScore >= 50)
-                    {
-                        GameManager.Instance.TurretGotSpawned(index);
-                        _player.ReduceScore(50);
-                        TurretSpawnFunction();
-                    }
-                    else
-                    {
-                        _player.GetComponent<PlayerController>().InsufficientMoneyInfo();
-                    }
-                }
+                GameManager.Instance.TurretGotSpawned(index);
+                _player.ReduceScore(50);
+                TurretSpawnFunction();
+            }
+            else
+            {
+                _player.GetComponent<PlayerController>().InsufficientMoneyInfo();
             }
         }
     }

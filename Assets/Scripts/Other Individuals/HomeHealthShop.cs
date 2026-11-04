@@ -1,12 +1,32 @@
+using System;
 using UnityEngine;
 
 public class HomeHealthShop : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
     public GameObject healthShopInstruct;
 
     void Start()
     {
         healthShopInstruct.SetActive(false);   
+    }
+
+    private void OnEnable()
+    {
+        inputReader.OnPlayerHomeHealth -= HandleHomeHealthRefill;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnPlayerHomeHealth -= HandleHomeHealthRefill;
+    }
+
+    private void HandleHomeHealthRefill()
+    {
+        if (healthShopInstruct.activeSelf)
+        {
+            HomeHealthRefill();
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -19,13 +39,6 @@ public class HomeHealthShop : MonoBehaviour
         healthShopInstruct.SetActive(false);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q) && healthShopInstruct.activeSelf)
-        {
-            HomeHealthRefill();
-        }
-    }
     public void HomeHealthRefill()
     {
         GameManager.Instance.HomeHealth();

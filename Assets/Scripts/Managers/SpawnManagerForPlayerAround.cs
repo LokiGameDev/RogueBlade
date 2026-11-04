@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManagerForPlayerAround : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
     private int _levelDifficulty;
     private bool _isWaveOn;
     [SerializeField]
@@ -22,6 +23,27 @@ public class SpawnManagerForPlayerAround : MonoBehaviour
         _isWaveTypeLevel=false;
     }
 
+    private void OnEnable()
+    {
+        inputReader.OnPlayerSpawnState += HandleSpawnState;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnPlayerSpawnState -= HandleSpawnState;
+    }
+
+    private void HandleSpawnState()
+    {
+        if(_isSpawnOn)
+        {
+            SpawnNeedToBePaused();
+        }
+        else{
+            SpawnNeedToBeResumed();
+        }
+    }
+
     void Update()
     {
         if(_isSpawnOn && _isWaveTypeLevel)
@@ -36,16 +58,7 @@ public class SpawnManagerForPlayerAround : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            if(_isSpawnOn)
-            {
-                SpawnNeedToBePaused();
-            }
-            else{
-                SpawnNeedToBeResumed();
-            }
-        }
+        
     }
 
     private void SpawnEnemyWave()

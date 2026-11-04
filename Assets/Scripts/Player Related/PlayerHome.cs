@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class PlayerHome : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
+
     [SerializeField]
     private bool _playerIsHome;
     public int _homeHealth
@@ -18,9 +21,19 @@ public class PlayerHome : MonoBehaviour
         player = GameObject.Find("Player");
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (_playerIsHome && Input.GetKeyDown(KeyCode.Tab))
+        inputReader.OnPlayerRefillAmmo += HandleRefillAmmo;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnPlayerRefillAmmo -= HandleRefillAmmo;
+    }
+
+    private void HandleRefillAmmo()
+    {
+        if (_playerIsHome)
         {
             player.GetComponent<PlayerController>().GunAmmoFillShop();
         }

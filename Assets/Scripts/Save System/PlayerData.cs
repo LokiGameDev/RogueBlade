@@ -1,3 +1,5 @@
+using System;
+
 [System.Serializable]
 public class PlayerData
 {
@@ -17,5 +19,17 @@ public class PlayerData
         saveName = name;
         dateTimeInfo = dateTime;
         turretStatus = turStatus;
+    }
+
+    public PlayerData()
+    {
+        level = 0;
+        playerHealth = 5;
+        homeHealth = 3;
+        ammoCount = 0;
+        playerScore = 0;
+        saveName = "WebPlay";
+        dateTimeInfo = DateTime.Now.ToString();
+        turretStatus = new bool[] { false, false, false, false};
     }
 }

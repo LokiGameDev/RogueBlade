@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,6 +31,7 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
+        Time.timeScale = 1;
         isPanelOpen = false;
         settingsMenu.SetActive(false);
         pauseMenu.SetActive(false);
@@ -153,7 +153,11 @@ public class UIManager : MonoBehaviour
     }
     public void QuitGame()
     {
-        Application.Quit();
+        #if UNITY_WEBGL || UNITY_EDITOR
+            MainMenu();
+        #else
+            Application.Quit();
+        #endif
     }
     public void MainMenu()
     {

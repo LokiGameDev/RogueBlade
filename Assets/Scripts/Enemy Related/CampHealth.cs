@@ -10,17 +10,15 @@ public class CampHealth : MonoBehaviour
     public TextMeshPro _campLivesText;
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
         _campLivesText.text = "" + _campHealth;
     }
 
     void GotHitByBullet()
     {
         _campHealth--;
+
+        _campLivesText.text = "" + _campHealth;
+
         if(_campHealth<=0)
         {
             GameObject.Find("Player").GetComponent<PlayerController>().AddScore(10);

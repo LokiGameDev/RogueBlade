@@ -4,6 +4,7 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
     private GameObject player;
     private int CURRENTSAVEINDEX = 0;
     private string CURRENTSAVENAME;
@@ -44,35 +45,52 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         _instance = this;
-    }
-    void Start()
-    {
+
         CURRENTSAVEINDEX = CurrentSavePlay.saveIndex;
         CURRENTSAVENAME = CurrentSavePlay.currentSaveName;
+        player = GameObject.FindWithTag("Player");
+        LoadGame();
+    }
+
+    private void OnEnable()
+    {
+        inputReader.OnPlayerSpawnStart += HandleSpawnStart;
+        player.GetComponent<PlayerController>().OnPlayerDeath += HandlePlayerDeath;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnPlayerSpawnStart -= HandleSpawnStart;
+        player.GetComponent<PlayerController>().OnPlayerDeath -= HandlePlayerDeath;
+    }
+
+    private void HandlePlayerDeath()
+    {
+        GameOver();
+    }
+
+    private void HandleSpawnStart()
+    {
+        if (_playerIsHome)
+        {
+            SpawnWave();
+        }
+    }
+
+    void Start()
+    {
         effectsAudioSource.volume = PlayerPrefs.GetFloat("SFXVolume");
         GameObject.Find("Main Camera").GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("MusicV");
         _BOSSLEVEL = 15;
         _canSpawnWave = true;
         UIManager.Instance.WaveStatus(!_canSpawnWave);
-        player = GameObject.FindWithTag("Player");
-        LoadGame();
         _isPlayerHomeSafe = true;
     }
     void Update()
     {
-        if (!player.GetComponent<PlayerController>().isPlayerAlive)
-        {
-            GameOver();
-        }
-        else
-        {
-            if (!_canSpawnWave) AllEnemeisCleared();
-            if (Input.GetKeyDown(KeyCode.E) && _playerIsHome)
-            {
-                SpawnWave();
-            }
-        }
+        if (!_canSpawnWave) AllEnemeisCleared();
     }
+
     public static event Action SpawnTheEnemies;
 
     private void SpawnWave()
@@ -122,15 +140,23 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame()
     {
-        PlayerController data = player.GetComponent<PlayerController>();
-        PlayerAttack data2 = player.GetComponentInChildren<PlayerAttack>();
-        string dateTime = "" + DateTime.Now;
-        SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore, CURRENTSAVEINDEX, CURRENTSAVENAME, dateTime, turretStatus);
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            return;
+        #else
+            PlayerController data = player.GetComponent<PlayerController>();
+            PlayerAttack data2 = player.GetComponentInChildren<PlayerAttack>();
+            string dateTime = "" + DateTime.Now;
+            SaveSystem.SavePlayer(data.playerLives, data2._gunAmmo, home._homeHealth, data.playerScore, CURRENTSAVEINDEX, CURRENTSAVENAME, dateTime, turretStatus);
+        #endif
     }
 
     public void LoadGame()
     {
-        PlayerData data = SaveSystem.LoadPlayer(CURRENTSAVEINDEX);
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            PlayerData data = new PlayerData();
+        #else
+            PlayerData data = SaveSystem.LoadPlayer(CURRENTSAVEINDEX);
+        #endif
         if (data != null)
         {
             _level = data.level;

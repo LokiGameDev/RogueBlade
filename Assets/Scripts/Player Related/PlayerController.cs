@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
     [SerializeField]
     private float _playerSpeed;
     public int playerScore
@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private int _maxAmmo;
     public Animator playerAnimator;
 
+    public event Action OnPlayerDeath;
+
     void Start()
     {
         isPlayerAlive = true;
@@ -44,33 +46,45 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.PlayerLivesUpdate(playerLives);
     }
 
-    void Update()
+    private void OnEnable()
     {
-        Movement();
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _canPlayerDash)
+        inputReader.OnPlayerDash += HandlePlayerDash;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnPlayerDash -= HandlePlayerDash;
+    }
+
+    private void HandlePlayerDash()
+    {
+        if (_canPlayerDash)
         {
             _canPlayerDash = false;
             GameManager.Instance.PlayAudioClip(0);
             dashStartTime = Time.time;
-            _playerRigid.velocity = playerAim.transform.forward * _playerSpeed * 8;
+            _playerRigid.linearVelocity = playerAim.transform.forward * _playerSpeed * 8;
             playerAnimator.SetTrigger("Dash");
             StartCoroutine(PlayerDashDelay());
         }
+    }
+
+    void Update()
+    {
+        Movement();
+
         if (!_canPlayerDash)
         {
             dashSlider.value = (Time.time - dashStartTime) / 1.5f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            AddScore(10);
         }
     }
 
     private void Movement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        Vector2 moveValue = inputReader.movementValue;
+        float horizontalInput = moveValue.x;
+        float verticalInput = moveValue.y;
+
         if (horizontalInput == 0 && verticalInput == 0)
         {
             playerAnimator.SetBool("Running", false);
@@ -109,6 +123,7 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.GameOver();
             isPlayerAlive = false;
+            OnPlayerDeath?.Invoke();
         }
     }
 
@@ -121,7 +136,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator PlayerDashDelay()
     {
         yield return new WaitForSeconds(0.15f);
-        _playerRigid.velocity = transform.forward * 0;
+        _playerRigid.linearVelocity = transform.forward * 0;
         yield return new WaitForSeconds(1.5f);
         _canPlayerDash = true;
     }

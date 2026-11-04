@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] private GameObject webGLPanel;
     public GameObject saveFilePanels;
     public GameObject startPanel, settingsPanel;
     void Start()
@@ -15,7 +16,11 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         startPanel.SetActive(false);
-        saveFilePanels.SetActive(true);
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            webGLPanel.SetActive(true);
+        #else
+            saveFilePanels.SetActive(true);
+        #endif
     }
 
     public void QuitGame()

@@ -69,4 +69,10 @@ public class SaveDetailsLoader : MonoBehaviour
     {
         saveFileNamePanel.SetActive(false);
     }
+
+    public void StartWebPlay()
+    {
+        CurrentSavePlay.ModifyCurrentSaveDetails("WebPlay", 3);
+        SceneManager.LoadScene(1);
+    }
 }
